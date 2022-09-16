@@ -10,16 +10,16 @@ const Map = (props) => {
   return (
     <>
       {/* Google Map Section */}
-      <section className='w-full h-[100vh]'>
-        {/* <GoogleMap
+      <section className='w-full h-[100vh] absolute top-0 -z-50'>
+        <GoogleMap
             center={center}
-            zoom={10}
+            zoom={15}
             mapContainerStyle={{ width: '100%', height: '100%' }}
-            onLoad={map => setMap(map)} 
+            // onLoad={map => setMap(map)} 
             >
             <Marker position={center} />
             {directionsResponse && <DirectionsRenderer directions={directionsResponse} />}
-          </GoogleMap> */}
+          </GoogleMap>
       </section>
     </>
   );

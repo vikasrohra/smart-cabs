@@ -1,17 +1,14 @@
 import Header from '../Home/header';
-import AvailableCabs from './availableCabs';
+import RecommendedCabs from './recommendedCabs';
 import Map from './map';
 import SideForm from './sideForm';
 
 import { useLocation, useNavigate } from 'react-router-dom';
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 //Map imports
-import {
-  useJsApiLoader
-} from '@react-google-maps/api';
+import { useJsApiLoader } from '@react-google-maps/api';
 
 // Map Constants
-const CENTER = { lat: 19.075983, lng: 72.877655 };
 const LIBRARIES = ['places'];
 
 const CabBooking = () => {
@@ -19,11 +16,18 @@ const CabBooking = () => {
     useState(false);
   const [dropRequiredValidationFlag, setdropRequiredValidationFlag] =
     useState(false);
+  const [showRecommendedCabs, setShowRecommendedCabs] = useState(false);
+  const [recommendedSelectedCab, setRecommendedSelectedCab] = useState(1);
   // Map state
+  const [center, setCenter] = useState({ lat: 19.075983, lng: 72.877655 });
   const [map, setMap] = useState(/** @type google.maps.Map */ null);
   const [directionsResponse, setDirectionsResponse] = useState(null);
   const [distance, setDistance] = useState('');
   const [duration, setDuration] = useState('');
+
+  useEffect(() => {
+    getCurrentLocation();
+  }, []);
 
   /** @type React.MutableRefObject<HTMLInputElement> */
   const pickupRef = useRef();
@@ -37,20 +41,31 @@ const CabBooking = () => {
     libraries: [...LIBRARIES],
   });
 
+  const getCurrentLocation = () => {
+    navigator.geolocation.getCurrentPosition(function(position) {
+      setCenter(() => {
+        return {lat: position.coords.latitude, lng: position.coords.longitude}
+      });
+    });
+  }
+
   const calculateRoute = async () => {
-    if (pickupRef.current.value.trim() === '' && dropRef.current.value.trim() === '') {
-    //   setPickupRequiredValidationFlag(true);
-    //   setdropRequiredValidationFlag(true);
+    if (
+      pickupRef.current.value.trim() === '' &&
+      dropRef.current.value.trim() === ''
+    ) {
+        setPickupRequiredValidationFlag(true);
+        setdropRequiredValidationFlag(true);
       return;
     }
 
     if (pickupRef.current.value.trim() === '') {
-    //   setPickupRequiredValidationFlag(true);
+        setPickupRequiredValidationFlag(true);
       return;
     }
 
     if (dropRef.current.value.trim() === '') {
-    //   setdropRequiredValidationFlag(true);
+        setdropRequiredValidationFlag(true);
       return;
     }
 
@@ -75,9 +90,17 @@ const CabBooking = () => {
     dropRef.origin.value = '';
   };
 
+  const setRecommendedCabsVisibility = () => {
+    setShowRecommendedCabs(!showRecommendedCabs);
+  };
+
+  const handleRecommendedCabChange = (id) => {
+    setRecommendedSelectedCab(id);
+  };
+
   return (
     <>
-     {/* Skeleton until map is loaded */}
+      {/* Skeleton until map is loaded */}
       {!isLoaded && (
         <div className='shadow rounded-md p-4 h-[100vh]'>
           <div className='animate-pulse flex space-x-4'>
@@ -100,7 +123,22 @@ const CabBooking = () => {
             <Map />
             <AvailableCabs /> */}
       {/* {isLoaded && <Map center={CENTER} setMap={setMap} directionsResponse={directionsResponse} />} */}
-      {isLoaded && <div>Maps Page</div>}
+      {isLoaded && (
+        <>
+          <SideForm calculateRoute={calculateRoute} pickupRequiredValidationFlag={pickupRequiredValidationFlag} dropRequiredValidationFlag={dropRequiredValidationFlag} pickupRef={pickupRef} dropRef={dropRef} />        
+            <Map
+              center={center}
+              setMap={setMap}
+              directionsResponse={directionsResponse}
+            />
+          <RecommendedCabs
+            showRecommendedCabs={showRecommendedCabs}
+            setRecommendedCabsVisibility={setRecommendedCabsVisibility}
+            recommendedSelectedCab={recommendedSelectedCab}
+            handleRecommendedCabChange={handleRecommendedCabChange}
+          />
+        </>
+      )}
     </>
   );
 };

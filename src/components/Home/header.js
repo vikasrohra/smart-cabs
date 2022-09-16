@@ -208,7 +208,7 @@ const Header = (props) => {
                 src={`${require('../../assets/images/fleet_1.png')}`}
                 className={`w-14 h-6 ml-2 ${
                   translateSearchCabsArrow
-                    ? 'translate-x-4 translate-x-14 ease-in-out duration-150 delay-100'
+                    ? 'translate-x-4 ease-in-out duration-150 delay-100'
                     : 'translate-x-0 ease-in-out duration-150 delay-100'
                 }`}
               />
