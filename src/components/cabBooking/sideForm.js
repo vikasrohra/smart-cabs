@@ -9,30 +9,45 @@ export default function SideForm(props) {
     pickupRef,
     dropRef,
     handleGoBackHomeClick,
-    clearRoute
+    clearRoute,
+    getCurrentLocation,
+    currentLocation,
+    isGetCurrentLocationIconClicked,
   } = { ...props };
 
   return (
-    <div className='drawer drawer-mobile'>
-      <input id='my-drawer-2' type='checkbox' className='drawer-toggle' />
+    // <div className='drawer drawer-mobile'>
+    <div className='drawer'>
+      <input id='side-drawer' type='checkbox' className='drawer-toggle' />
       <div className='drawer-content flex flex-col items-center justify-center fixed'>
-        <label
-          htmlFor='my-drawer-2'
-          className='btn btn-primary drawer-button lg:hidden'
-        >
-          <i className='fa-solid fa-chevron-right'></i>
-        </label>
+        <div className='tooltip tooltip-right tooltip-info' data-tip='Expand'>
+          <label
+            htmlFor='side-drawer'
+            // className='btn btn-primary drawer-button lg:hidden'
+            className='btn btn-xs btn-active btn-primary rounded-l-none drawer-button -translate-x-0.5 no-animation'
+          >
+            <i className='fa-solid fa-chevron-right'></i>
+          </label>
+        </div>
       </div>
       <div className='drawer-side'>
-        <label htmlFor='my-drawer-2' className='drawer-overlay'></label>
+        <label htmlFor='side-drawer' className='drawer-overlay'></label>
         <div className='menu p-4 overflow-y-auto w-80 bg-base-100 text-base-content bg-neutral text-neutral-content'>
-          <div className='flex flex-col items-end'>
+          <div className='flex justify-between'>
             <button
               className='btn btn-xs btn-ghost'
               onClick={handleGoBackHomeClick}
             >
               Go Back Home
             </button>
+            <div
+              className='tooltip tooltip-left tooltip-info'
+              data-tip='Collapse'
+            >
+              <label htmlFor='side-drawer' className='btn btn-xs btn-ghost'>
+                <i className='fa-solid fa-chevron-left'></i>
+              </label>
+            </div>
           </div>
           <div className='form-control mt-8'>
             <label className='label'>
@@ -55,6 +70,7 @@ export default function SideForm(props) {
                     type='text'
                     ref={pickupRef}
                     placeholder='Type here'
+                    value={isGetCurrentLocationIconClicked && currentLocation}
                     className={`input input-bordered w-full ${
                       pickupRequiredValidationFlag ? 'input-error' : ''
                     }`}
@@ -62,13 +78,21 @@ export default function SideForm(props) {
                 </Autocomplete>
               </div>
             </div>
-            {pickupRequiredValidationFlag && (
-              <label className='label'>
+            <label className='label'>
+              {pickupRequiredValidationFlag && (
                 <span className='label-text-alt'>
                   Type atleast 1 character, we'll help you out
                 </span>
-              </label>
-            )}
+              )}
+              <div
+                className={`label-text-alt tooltip ${pickupRequiredValidationFlag ? "tooltip-left" : "tooltip-right"} tooltip-warning text-xs`}
+                data-tip='Use current location'
+              >
+                <span className='cursor-pointer btn btn-xs btn-ghost' onClick={() => getCurrentLocation(true)}>
+                  <i className='fa-solid fa-location-dot'></i>
+                </span>
+              </div>
+            </label>
           </div>
           <div className='form-control mt-4'>
             <label className='label'>
@@ -111,7 +135,10 @@ export default function SideForm(props) {
               className='tooltip tooltip-bottom tooltip-warning'
               data-tip='Clear all fields'
             >
-              <button className='btn btn-active btn-ghost mr-4' onClick={clearRoute}>
+              <button
+                className='btn btn-active btn-ghost mr-4'
+                onClick={clearRoute}
+              >
                 <svg
                   className='w-6 h-6'
                   fill='none'
@@ -132,7 +159,15 @@ export default function SideForm(props) {
               className='tooltip tooltip-left tooltip-success'
               data-tip='Search a Smart Cab'
             >
-              <button className='btn btn-primary' onClick={calculateRoute}>
+              <label
+                htmlFor={`${
+                  !pickupRequiredValidationFlag && !dropRequiredValidationFlag
+                    ? 'side-drawer'
+                    : ''
+                }`}
+                className='btn btn-primary'
+                onClick={calculateRoute}
+              >
                 <svg
                   className='w-6 h-6'
                   fill='none'
@@ -147,7 +182,7 @@ export default function SideForm(props) {
                     d='M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z'
                   />
                 </svg>
-              </button>
+              </label>
             </div>
           </div>
         </div>

@@ -22,6 +22,8 @@ const CabBooking = () => {
   const [recommendedSelectedCab, setRecommendedSelectedCab] = useState(1);
   // Map state
   const [center, setCenter] = useState({ lat: 19.075983, lng: 72.877655 });
+  const [currentLocation, setCurrentLocation] = useState(null);
+  const [isGetCurrentLocationIconClicked, setIsGetCurrentLocationIconClicked] = useState(false);
   const [map, setMap] = useState(/** @type google.maps.Map */ null);
   const [directionsResponse, setDirectionsResponse] = useState(null);
   const [distance, setDistance] = useState('');
@@ -43,8 +45,9 @@ const CabBooking = () => {
     libraries: [...LIBRARIES],
   });
 
-  const getCurrentLocation = () => {
+  const getCurrentLocation = (isRequiredAsPickup) => {
     navigator.geolocation.getCurrentPosition(function (position) {
+      setCurrentLocation(position);
       setCenter(() => {
         return {
           lat: position.coords.latitude,
@@ -52,6 +55,10 @@ const CabBooking = () => {
         };
       });
     });
+
+    if(isRequiredAsPickup){
+      setIsGetCurrentLocationIconClicked(true);
+    }    
   };
 
   const calculateRoute = async () => {
@@ -94,6 +101,8 @@ const CabBooking = () => {
     setDuration('');
     pickupRef.current.value = '';
     dropRef.current.value = '';
+    setPickupRequiredValidationFlag(false);
+    setdropRequiredValidationFlag(false);
     setShowRecommendedCabs(false);
   };
 
@@ -139,6 +148,8 @@ const CabBooking = () => {
             dropRef={dropRef}
             handleGoBackHomeClick={handleGoBackHomeClick}
             clearRoute={clearRoute}
+            getCurrentLocation={getCurrentLocation}
+            currentLocation={currentLocation}
           />
           <Map
             center={center}
@@ -153,9 +164,10 @@ const CabBooking = () => {
               handleRecommendedCabChange={handleRecommendedCabChange}
               distance={distance}
               duration={duration}
+              isGetCurrentLocationIconClicked={isGetCurrentLocationIconClicked}
             />
           )}
-          <div className='fixed right-3 bottom-52 bg-white p-1 cursor-pointer' onClick={() => map.panTo(center)}>
+          <div className='fixed right-3 bottom-52 bg-white p-1 cursor-pointer lg:z-35' onClick={() => map.panTo(center)}>
             <img
               className='w-8 h-8'
               src={`${require('../../assets/images/recenter_location.webp')}`}

@@ -35,7 +35,7 @@ export default function RecommendedCabs(props) {
   return (
     <div className='flex flex-col items-center'>
       <div
-        className={`card rounded-b-none rounded-t-6 w-[100vw] md:w-[70vw] lg:w-[50vw] bg-base-100 fixed bottom-0 lg:right-0 xl:right-auto bg-neutral text-neutral-content ${
+        className={`card rounded-b-none rounded-t-6 w-[100vw] md:w-[70vw] lg:w-[50vw] bg-base-100 fixed z-40 bottom-0 lg:right-0 xl:right-auto bg-neutral text-neutral-content ${
           translateRecommendedCabs ? '' : 'translate-y-[16.3rem]'
         } ease-in-out duration-500`}
       >
@@ -45,9 +45,9 @@ export default function RecommendedCabs(props) {
             onClick={toggleRecommendedCabsVisibility}
           ></div>
           <h2 className='card-title mx-auto'>Recommended Cabs</h2>
-          <div className='flex justify-between text-xs px-4'>
-            <span>Distance: <span className="badge badge-warning text-xs font-bold">{distance}</span></span>
-            <span>Estimated time of drop: <span className="badge badge-warning text-xs font-bold">{duration}</span></span>
+          <div className='flex justify-between text-xs px-2'>
+            <span>Distance: <span className="badge badge-warning badge-sm text-xs font-bold">{distance}</span></span>
+            <span>Estimated time of drop: <span className="badge badge-warning badge-sm text-xs font-bold">{duration}</span></span>
           </div>
           <ul className='menu bg-neutral text-neutral-content h-40 overflow-y-auto'>
             <li
