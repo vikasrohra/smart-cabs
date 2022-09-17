@@ -36,7 +36,7 @@ export default function RecommendedCabs(props) {
     <div className='flex flex-col items-center'>
       <div
         className={`card rounded-b-none rounded-t-6 w-[100vw] md:w-[70vw] lg:w-[50vw] bg-base-100 fixed z-40 bottom-0 lg:right-0 xl:right-auto bg-neutral text-neutral-content ${
-          translateRecommendedCabs ? '' : 'translate-y-[16.3rem]'
+          translateRecommendedCabs ? '' : 'translate-y-[24rem]'
         } ease-in-out duration-500`}
       >
         <div className='card-body p-0 pt-4'>
@@ -49,7 +49,7 @@ export default function RecommendedCabs(props) {
             <span>Distance: <span className="badge badge-warning badge-sm text-xs font-bold">{distance}</span></span>
             <span>Estimated time of drop: <span className="badge badge-warning badge-sm text-xs font-bold">{duration}</span></span>
           </div>
-          <ul className='menu bg-neutral text-neutral-content h-40 overflow-y-auto'>
+          <ul className='menu bg-neutral text-neutral-content h-72 overflow-y-auto'>
             <li
               className={`${
                 recommendedSelectedCab === 1 ? 'bordered bg-gray-800' : ''

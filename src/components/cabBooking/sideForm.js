@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Autocomplete } from '@react-google-maps/api';
 
 export default function SideForm(props) {
@@ -10,10 +10,20 @@ export default function SideForm(props) {
     dropRef,
     handleGoBackHomeClick,
     clearRoute,
-    getCurrentLocation,
     currentLocation,
     isGetCurrentLocationIconClicked,
+    getReverseGeocodingData,
+    center,
+    handlePickUpChange
   } = { ...props };
+
+  useEffect(() => {
+    console.log(
+      'currentLocation, isGetCurrentLocationIconClicked',
+      currentLocation,
+      isGetCurrentLocationIconClicked
+    );
+  }, []);
 
   return (
     // <div className='drawer drawer-mobile'>
@@ -51,7 +61,24 @@ export default function SideForm(props) {
           </div>
           <div className='form-control mt-8'>
             <label className='label'>
-              <span className='label-text'>Pickup?</span>
+              <span className='label-text'>
+                Pickup?
+                <div
+                  className={`label-text-alt tooltip ${
+                    pickupRequiredValidationFlag
+                      ? 'tooltip-left'
+                      : 'tooltip-right'
+                  } tooltip-warning text-xs`}
+                  data-tip='Use current location'
+                >
+                  <span
+                    className='cursor-pointer btn btn-sm btn-ghost'
+                    onClick={() => getReverseGeocodingData(center)}
+                  >
+                    <i className='fa-solid fa-location-arrow'></i>
+                  </span>
+                </div>
+              </span>
             </label>
             {/* <input
               type='text'
@@ -65,17 +92,30 @@ export default function SideForm(props) {
                 </span>
               )}
               <div className='w-full'>
-                <Autocomplete>
+                {isGetCurrentLocationIconClicked && (
                   <input
                     type='text'
                     ref={pickupRef}
                     placeholder='Type here'
-                    value={isGetCurrentLocationIconClicked && currentLocation}
+                    value={currentLocation}
+                    onChange={handlePickUpChange}
                     className={`input input-bordered w-full ${
                       pickupRequiredValidationFlag ? 'input-error' : ''
                     }`}
                   />
-                </Autocomplete>
+                )}
+                {!isGetCurrentLocationIconClicked && (
+                  <Autocomplete>
+                    <input
+                      type='text'
+                      ref={pickupRef}
+                      placeholder='Type here'
+                      className={`input input-bordered w-full ${
+                        pickupRequiredValidationFlag ? 'input-error' : ''
+                      }`}
+                    />
+                  </Autocomplete>
+                )}
               </div>
             </div>
             <label className='label'>
@@ -84,17 +124,9 @@ export default function SideForm(props) {
                   Type atleast 1 character, we'll help you out
                 </span>
               )}
-              <div
-                className={`label-text-alt tooltip ${pickupRequiredValidationFlag ? "tooltip-left" : "tooltip-right"} tooltip-warning text-xs`}
-                data-tip='Use current location'
-              >
-                <span className='cursor-pointer btn btn-xs btn-ghost' onClick={() => getCurrentLocation(true)}>
-                  <i className='fa-solid fa-location-dot'></i>
-                </span>
-              </div>
             </label>
           </div>
-          <div className='form-control mt-4'>
+          <div className='form-control mt-0'>
             <label className='label'>
               <span className='label-text'>Drop?</span>
             </label>

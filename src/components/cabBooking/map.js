@@ -15,7 +15,7 @@ const Map = (props) => {
             center={center}
             zoom={10}
             mapContainerStyle={{ width: '100%', height: '100%' }}
-            // onLoad={map => setMap(map)} 
+            onLoad={map => setMap(map)} 
             >
             <Marker position={center} />
             {directionsResponse && <DirectionsRenderer directions={directionsResponse} />}
