@@ -13,7 +13,7 @@ const Map = (props) => {
       <section className='w-full h-[100vh] absolute top-0 -z-50'>
         <GoogleMap
             center={center}
-            zoom={15}
+            zoom={10}
             mapContainerStyle={{ width: '100%', height: '100%' }}
             // onLoad={map => setMap(map)} 
             >

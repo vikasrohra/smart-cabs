@@ -47,15 +47,15 @@
 
 /* Track */
 ::-webkit-scrollbar-track {
-  background: #ffffff;
+  background: #191d24;
   /* border-radius: 20px; */
 }
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background-color: #cccccc;
-  /* border-radius: 20px; */
-  height: 6px
+  background-color: #6b7280;
+  border-radius: 20px;
+  height: 6px;
 }
 
 /* Handle on hover */

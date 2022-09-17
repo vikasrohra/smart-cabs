@@ -16,6 +16,8 @@ const CabBooking = () => {
     useState(false);
   const [dropRequiredValidationFlag, setdropRequiredValidationFlag] =
     useState(false);
+  const [translateRecommendedCabs, setTranslateRecommendedCabs] =
+    useState(false);
   const [showRecommendedCabs, setShowRecommendedCabs] = useState(false);
   const [recommendedSelectedCab, setRecommendedSelectedCab] = useState(1);
   // Map state
@@ -42,30 +44,33 @@ const CabBooking = () => {
   });
 
   const getCurrentLocation = () => {
-    navigator.geolocation.getCurrentPosition(function(position) {
+    navigator.geolocation.getCurrentPosition(function (position) {
       setCenter(() => {
-        return {lat: position.coords.latitude, lng: position.coords.longitude}
+        return {
+          lat: position.coords.latitude,
+          lng: position.coords.longitude,
+        };
       });
     });
-  }
+  };
 
   const calculateRoute = async () => {
     if (
       pickupRef.current.value.trim() === '' &&
       dropRef.current.value.trim() === ''
     ) {
-        setPickupRequiredValidationFlag(true);
-        setdropRequiredValidationFlag(true);
+      setPickupRequiredValidationFlag(true);
+      setdropRequiredValidationFlag(true);
       return;
     }
 
     if (pickupRef.current.value.trim() === '') {
-        setPickupRequiredValidationFlag(true);
+      setPickupRequiredValidationFlag(true);
       return;
     }
 
     if (dropRef.current.value.trim() === '') {
-        setdropRequiredValidationFlag(true);
+      setdropRequiredValidationFlag(true);
       return;
     }
 
@@ -78,24 +83,30 @@ const CabBooking = () => {
       travelMode: google.maps.TravelMode.DRIVING,
     });
     setDirectionsResponse(results);
-    console.log(results.routes[0].legs[0].distance.text); // set this value in state
-    console.log(results.routes[0].legs[0].duration.text); // set this value in state
+    setDistance(results.routes[0].legs[0].distance.text);
+    setDuration(results.routes[0].legs[0].duration.text);
+    setShowRecommendedCabs(true);
   };
 
   const clearRoute = () => {
     setDirectionsResponse(null);
     setDistance('');
     setDuration('');
-    pickupRef.origin.value = '';
-    dropRef.origin.value = '';
+    pickupRef.current.value = '';
+    dropRef.current.value = '';
+    setShowRecommendedCabs(false);
   };
 
-  const setRecommendedCabsVisibility = () => {
-    setShowRecommendedCabs(!showRecommendedCabs);
+  const toggleRecommendedCabsVisibility = () => {
+    setTranslateRecommendedCabs(!translateRecommendedCabs);
   };
 
   const handleRecommendedCabChange = (id) => {
     setRecommendedSelectedCab(id);
+  };
+
+  const handleGoBackHomeClick = () => {
+    navigate('/');
   };
 
   return (
@@ -118,25 +129,38 @@ const CabBooking = () => {
         </div>
       )}
 
-      {/* <Header />
-            <SideForm />
-            <Map />
-            <AvailableCabs /> */}
-      {/* {isLoaded && <Map center={CENTER} setMap={setMap} directionsResponse={directionsResponse} />} */}
       {isLoaded && (
         <>
-          <SideForm calculateRoute={calculateRoute} pickupRequiredValidationFlag={pickupRequiredValidationFlag} dropRequiredValidationFlag={dropRequiredValidationFlag} pickupRef={pickupRef} dropRef={dropRef} />        
-            <Map
-              center={center}
-              setMap={setMap}
-              directionsResponse={directionsResponse}
-            />
-          <RecommendedCabs
-            showRecommendedCabs={showRecommendedCabs}
-            setRecommendedCabsVisibility={setRecommendedCabsVisibility}
-            recommendedSelectedCab={recommendedSelectedCab}
-            handleRecommendedCabChange={handleRecommendedCabChange}
+          <SideForm
+            calculateRoute={calculateRoute}
+            pickupRequiredValidationFlag={pickupRequiredValidationFlag}
+            dropRequiredValidationFlag={dropRequiredValidationFlag}
+            pickupRef={pickupRef}
+            dropRef={dropRef}
+            handleGoBackHomeClick={handleGoBackHomeClick}
+            clearRoute={clearRoute}
           />
+          <Map
+            center={center}
+            setMap={setMap}
+            directionsResponse={directionsResponse}
+          />
+          {showRecommendedCabs && (
+            <RecommendedCabs
+              translateRecommendedCabs={translateRecommendedCabs}
+              toggleRecommendedCabsVisibility={toggleRecommendedCabsVisibility}
+              recommendedSelectedCab={recommendedSelectedCab}
+              handleRecommendedCabChange={handleRecommendedCabChange}
+              distance={distance}
+              duration={duration}
+            />
+          )}
+          <div className='fixed right-3 bottom-52 bg-white p-1 cursor-pointer' onClick={() => map.panTo(center)}>
+            <img
+              className='w-8 h-8'
+              src={`${require('../../assets/images/recenter_location.webp')}`}
+            />
+          </div>
         </>
       )}
     </>

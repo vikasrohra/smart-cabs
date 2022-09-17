@@ -1,4 +1,5 @@
 import React from 'react';
+import { Autocomplete } from '@react-google-maps/api';
 
 export default function SideForm(props) {
   const {
@@ -7,6 +8,8 @@ export default function SideForm(props) {
     dropRequiredValidationFlag,
     pickupRef,
     dropRef,
+    handleGoBackHomeClick,
+    clearRoute
   } = { ...props };
 
   return (
@@ -23,7 +26,15 @@ export default function SideForm(props) {
       <div className='drawer-side'>
         <label htmlFor='my-drawer-2' className='drawer-overlay'></label>
         <div className='menu p-4 overflow-y-auto w-80 bg-base-100 text-base-content bg-neutral text-neutral-content'>
-          <div className='form-control'>
+          <div className='flex flex-col items-end'>
+            <button
+              className='btn btn-xs btn-ghost'
+              onClick={handleGoBackHomeClick}
+            >
+              Go Back Home
+            </button>
+          </div>
+          <div className='form-control mt-8'>
             <label className='label'>
               <span className='label-text'>Pickup?</span>
             </label>
@@ -38,14 +49,18 @@ export default function SideForm(props) {
                   Required
                 </span>
               )}
-              <input
-                type='text'
-                ref={pickupRef}
-                placeholder='Type here'
-                className={`input input-bordered w-full ${
-                  pickupRequiredValidationFlag ? 'input-error' : ''
-                }`}
-              />
+              <div className='w-full'>
+                <Autocomplete>
+                  <input
+                    type='text'
+                    ref={pickupRef}
+                    placeholder='Type here'
+                    className={`input input-bordered w-full ${
+                      pickupRequiredValidationFlag ? 'input-error' : ''
+                    }`}
+                  />
+                </Autocomplete>
+              </div>
             </div>
             {pickupRequiredValidationFlag && (
               <label className='label'>
@@ -70,14 +85,18 @@ export default function SideForm(props) {
                   Required
                 </span>
               )}
-              <input
-                type='text'
-                ref={dropRef}
-                placeholder='Type here'
-                className={`input input-bordered w-full ${
-                  dropRequiredValidationFlag ? 'input-error' : ''
-                }`}
-              />
+              <div className='w-full'>
+                <Autocomplete>
+                  <input
+                    type='text'
+                    ref={dropRef}
+                    placeholder='Type here'
+                    className={`input input-bordered w-full ${
+                      dropRequiredValidationFlag ? 'input-error' : ''
+                    }`}
+                  />
+                </Autocomplete>
+              </div>
             </div>
             {dropRequiredValidationFlag && (
               <label className='label'>
@@ -89,31 +108,10 @@ export default function SideForm(props) {
           </div>
           <div className='mt-12 flex justify-end'>
             <div
-              className='tooltip tooltip-bottom tooltip-info'
-              data-tip='Go back Home'
-            >
-              <button className='btn btn-active btn-ghost mr-4'>
-                <svg
-                  className='w-6 h-6'
-                  fill='none'
-                  stroke='currentColor'
-                  viewBox='0 0 24 24'
-                  xmlns='http://www.w3.org/2000/svg'
-                >
-                  <path
-                    strokeLinecap='round'
-                    strokeLinejoin='round'
-                    strokeWidth={2}
-                    d='M10 19l-7-7m0 0l7-7m-7 7h18'
-                  />
-                </svg>
-              </button>
-            </div>
-            <div
               className='tooltip tooltip-bottom tooltip-warning'
               data-tip='Clear all fields'
             >
-              <button className='btn btn-active btn-ghost mr-4'>
+              <button className='btn btn-active btn-ghost mr-4' onClick={clearRoute}>
                 <svg
                   className='w-6 h-6'
                   fill='none'
