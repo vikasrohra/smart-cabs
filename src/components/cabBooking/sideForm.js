@@ -64,11 +64,7 @@ export default function SideForm(props) {
               <span className='label-text'>
                 Pickup?
                 <div
-                  className={`label-text-alt tooltip ${
-                    pickupRequiredValidationFlag
-                      ? 'tooltip-left'
-                      : 'tooltip-right'
-                  } tooltip-warning text-xs`}
+                  className={`label-text-alt tooltip tooltip-right tooltip-warning text-xs`}
                   data-tip='Use current location'
                 >
                   <span

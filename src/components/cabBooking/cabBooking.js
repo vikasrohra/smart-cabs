@@ -19,10 +19,11 @@ const CabBooking = () => {
   const [translateRecommendedCabs, setTranslateRecommendedCabs] =
     useState(false);
   const [showRecommendedCabs, setShowRecommendedCabs] = useState(false);
-  const [recommendedSelectedCab, setRecommendedSelectedCab] = useState(1);
+  const [recommendedSelectedCab, setRecommendedSelectedCab] = useState(0);
+  const [cabsData, setCabsData] = useState(null);
   // Map state
   const [center, setCenter] = useState({ lat: 19.075983, lng: 72.877655 });
-  const [currentLocation, setCurrentLocation] = useState(null);
+  const [currentLocation, setCurrentLocation] = useState('');
   const [isGetCurrentLocationIconClicked, setIsGetCurrentLocationIconClicked] =
     useState(false);
   const [map, setMap] = useState(/** @type google.maps.Map */ null);
@@ -74,7 +75,6 @@ const CabBooking = () => {
       if (status == google.maps.GeocoderStatus.OK) {
         // console.log(results);
         var address = results[0].formatted_address;
-        debugger;
         setCurrentLocation(address);
       }
     });
@@ -85,67 +85,50 @@ const CabBooking = () => {
   const initializeCabsFare = () => {
     const cabs = [
       {
+        id: 0,
+        name: 'Any',
+        away: '2 mins away',
+        fare: 0,
+      },
+      {
         id: 1,
         name: 'Auto',
-        basePrice: 45, // For first 5 kms
-        ratePerKMTill20KM: 6,
-        ratePerKMAfter20KM: 12,
-        rideTimeChargePerMin: 1,
-        serviceTax: 5.6 // In percentage
-
+        away: '3 mins away',
+        fare: 0,
       },
       {
         id: 2,
         name: 'Mini',
-        basePrice: 50, // For first 5 kms
-        ratePerKMTill20KM: 11,
-        ratePerKMAfter20KM: 20,
-        rideTimeChargePerMin: 1,
-        serviceTax: 5.6 // In percentage
-
+        away: '3 mins away',
+        fare: 0,
       },
       {
         id: 3,
         name: 'Prime Play',
-        basePrice: 60, // For first 5 kms
-        ratePerKMTill20KM: 13,
-        ratePerKMAfter20KM: 25,
-        rideTimeChargePerMin: 1,
-        serviceTax: 5.6 // In percentage
-
+        away: '5 mins away',
+        fare: 0,
       },
       {
         id: 4,
         name: 'Prime Sedan',
-        basePrice: 70, // For first 5 kms
-        ratePerKMTill20KM: 15,
-        ratePerKMAfter20KM: 30,
-        rideTimeChargePerMin: 1,
-        serviceTax: 5.6 // In percentage
-
+        away: '6 mins away',
+        fare: 0,
       },
       {
         id: 5,
         name: 'Prime SUV',
-        basePrice: 80, // For first 5 kms
-        ratePerKMTill20KM: 18,
-        ratePerKMAfter20KM: 35,
-        rideTimeChargePerMin: 1,
-        serviceTax: 5.6 // In percentage
-
+        away: '8 mins away',
+        fare: 0,
       },
       {
         id: 6,
         name: 'Prime EXEC',
-        basePrice: 100, // For first 5 kms
-        ratePerKMTill20KM: 21,
-        ratePerKMAfter20KM: 40,
-        rideTimeChargePerMin: 1,
-        serviceTax: 5.6 // In percentage
-
+        away: '15 mins away',
+        fare: 0,
       },
     ];
-  }
+    setCabsData(cabs);
+  };
 
   const calculateRoute = async () => {
     if (
@@ -175,10 +158,214 @@ const CabBooking = () => {
       // eslint-disable-next-line no-undef
       travelMode: google.maps.TravelMode.DRIVING,
     });
+    
+    const cabsInfo = [...cabsData];
+    const cabsWithFare = cabsInfo.map((cab, index) => {
+      return {
+        id: cab.id,
+        name: cab.name,
+        fare: calculateCabFare(cab.id, results.routes[0].legs[0].distance.text, results.routes[0].legs[0].duration.text),
+      }
+    });
+    
     setDirectionsResponse(results);
     setDistance(results.routes[0].legs[0].distance.text);
     setDuration(results.routes[0].legs[0].duration.text);
     setShowRecommendedCabs(true);
+    setCabsData(cabsWithFare);
+  };
+
+  const calculateCabFare = (cabType, distance, duration) => {
+    const serviceTax = 5.6; // In Percentage, charged at the total fare
+    const baseKilometers = 20; // In Kiloneters, after 20 kilometers charge/kilometer will be increased
+    const basePriceKilometers = 5; // In Kilometers, after 5 Kms base price will not be charged
+    const rideTimeCharge = 1; // In rupees, for every minute you will be charged a rupee
+
+    distance = distance && parseInt(distance);
+    duration = duration && parseInt(duration);
+    switch (cabType) {
+      case 0: //Any
+        const chargePerKmMini0 = 6;
+        const changedChargePerKmMini0 = 12; // Charge after baseKilometers
+        const basePriceMini0 = 45;
+
+        const chargePerKmPrimeExec0 = 21;
+        const changedChargePerKmPrimeExec0 = 40; // Charge after baseKilometers
+        const basePricePrimeExec0 = 100;
+
+        const totalFareMini0 = calculateDifferentCharges(
+          distance,
+          baseKilometers,
+          chargePerKmMini0,
+          changedChargePerKmMini0,
+          duration,
+          rideTimeCharge,
+          basePriceMini0,
+          basePriceKilometers,
+          serviceTax
+        );
+
+        const totalFarePrimeExec0 = calculateDifferentCharges(
+          distance,
+          baseKilometers,
+          chargePerKmPrimeExec0,
+          changedChargePerKmPrimeExec0,
+          duration,
+          rideTimeCharge,
+          basePricePrimeExec0,
+          basePriceKilometers,
+          serviceTax
+        );
+
+        return (`₹${Math.floor(totalFareMini0).toLocaleString('en-US')} - ₹${Math.round(totalFarePrimeExec0).toLocaleString('en-US')}`);
+
+      case 1: //Auto
+        const chargePerKmAuto = 6;
+        const changedChargePerKmAuto = 12; // Charge after baseKilometers
+        const basePriceAuto = 45;
+
+        const totalFareAuto = calculateDifferentCharges(
+          distance,
+          baseKilometers,
+          chargePerKmAuto,
+          changedChargePerKmAuto,
+          duration,
+          rideTimeCharge,
+          basePriceAuto,
+          basePriceKilometers,
+          serviceTax
+        );
+
+        return `₹${Math.floor(totalFareAuto).toLocaleString('en-US')}`;
+
+      case 2: //Mini
+        const chargePerKmMini = 11;
+        const changedChargePerKMini = 20; // Charge after baseKilometers
+        const basePriceMini = 50;
+
+        const totalFareMini = calculateDifferentCharges(
+          distance,
+          baseKilometers,
+          chargePerKmMini,
+          changedChargePerKMini,
+          duration,
+          rideTimeCharge,
+          basePriceMini,
+          basePriceKilometers,
+          serviceTax
+        );
+
+        return `₹${Math.floor(totalFareMini).toLocaleString('en-US')}`;
+
+      case 3: //Prime Play
+        const chargePerKmPP = 13;
+        const changedChargePerKmPP = 25; // Charge after baseKilometers
+        const basePricePP = 60;
+
+        const totalFarePrimePlay = calculateDifferentCharges(
+          distance,
+          baseKilometers,
+          chargePerKmPP,
+          changedChargePerKmPP,
+          duration,
+          rideTimeCharge,
+          basePricePP,
+          basePriceKilometers,
+          serviceTax
+        );
+
+        return `₹${Math.floor(totalFarePrimePlay).toLocaleString('en-US')}`;
+
+      case 4: //Prime Sedan
+        const chargePerKmPS = 15;
+        const changedChargePerKmPS = 30; // Charge after baseKilometers
+        const basePricePS = 70;
+
+        const totalFarePrimeSedan = calculateDifferentCharges(
+          distance,
+          baseKilometers,
+          chargePerKmPS,
+          changedChargePerKmPS,
+          duration,
+          rideTimeCharge,
+          basePricePS,
+          basePriceKilometers,
+          serviceTax
+        );
+
+        return `₹${Math.floor(totalFarePrimeSedan).toLocaleString('en-US')}`;
+
+      case 5: //Prime SUV
+        const chargePerKmPSuv = 18;
+        const changedChargePerKmPSuv = 35; // Charge after baseKilometers
+        const basePricePSuv = 80;
+
+        const totalFarePrimeSuv = calculateDifferentCharges(
+          distance,
+          baseKilometers,
+          chargePerKmPSuv,
+          changedChargePerKmPSuv,
+          duration,
+          rideTimeCharge,
+          basePricePSuv,
+          basePriceKilometers,
+          serviceTax
+        );
+
+        return `₹${Math.floor(totalFarePrimeSuv).toLocaleString('en-US')}`;
+
+      case 6: //Prime EXEC
+        const chargePerKmExec = 21;
+        const changedChargePerKmExec = 40; // Charge after baseKilometers
+        const basePriceExec = 100;
+
+        const totalFarePrimeExec = calculateDifferentCharges(
+          distance,
+          baseKilometers,
+          chargePerKmExec,
+          changedChargePerKmExec,
+          duration,
+          rideTimeCharge,
+          basePriceExec,
+          basePriceKilometers,
+          serviceTax
+        );
+
+        return `₹${Math.floor(totalFarePrimeExec).toLocaleString('en-US')}`;
+    }
+  };
+
+  const calculateDifferentCharges = (
+    distance,
+    baseKilometers,
+    chargePerKm,
+    changedChargePerKm,
+    duration,
+    rideTimeCharge,
+    basePrice,
+    basePriceKilometers,
+    serviceTax
+  ) => {
+    // Charge on distance
+    let chargeOnDistance = 0;
+    if (distance > baseKilometers) {
+      chargeOnDistance = baseKilometers * chargePerKm;
+      chargeOnDistance += (distance - baseKilometers) * changedChargePerKm;
+    } else {
+      chargeOnDistance = distance * chargePerKm;
+    }
+
+    // Charge on time
+    let chargeOnTime = duration * rideTimeCharge;
+
+    // Base price charge
+    let basePriceCharge = basePrice * basePriceKilometers;
+
+    let totalFare = chargeOnDistance + chargeOnTime + basePriceCharge;
+    totalFare +=
+      (chargeOnDistance + chargeOnTime + basePriceCharge) * (serviceTax / 100);
+
+      return totalFare;
   };
 
   const clearRoute = () => {
@@ -190,6 +377,7 @@ const CabBooking = () => {
     setPickupRequiredValidationFlag(false);
     setdropRequiredValidationFlag(false);
     setShowRecommendedCabs(false);
+    setCurrentLocation('');
   };
 
   const toggleRecommendedCabsVisibility = () => {
@@ -205,10 +393,10 @@ const CabBooking = () => {
   };
 
   const handlePickUpChange = () => {
-    if(pickupRef.current.value.trim() === ''){
+    if (pickupRef.current.value.trim() === '') {
       setCurrentLocation(null);
     }
-  }
+  };
 
   return (
     <>
@@ -259,6 +447,7 @@ const CabBooking = () => {
               handleRecommendedCabChange={handleRecommendedCabChange}
               distance={distance}
               duration={duration}
+              cabsData={cabsData}
             />
           )}
           <div
