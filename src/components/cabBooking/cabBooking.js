@@ -7,6 +7,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { useState, useRef, useEffect } from 'react';
 //Map imports
 import { useJsApiLoader } from '@react-google-maps/api';
+import getCabName from '../utility/getCabName';
 
 // Map Constants
 const LIBRARIES = ['places'];
@@ -158,16 +159,20 @@ const CabBooking = () => {
       // eslint-disable-next-line no-undef
       travelMode: google.maps.TravelMode.DRIVING,
     });
-    
     const cabsInfo = [...cabsData];
     const cabsWithFare = cabsInfo.map((cab, index) => {
       return {
         id: cab.id,
         name: cab.name,
-        fare: calculateCabFare(cab.id, results.routes[0].legs[0].distance.text, results.routes[0].legs[0].duration.text),
-      }
+        away: cab.away,
+        fare: calculateCabFare(
+          cab.id,
+          results.routes[0].legs[0].distance.text,
+          results.routes[0].legs[0].duration.text
+        ),
+      };
     });
-    
+
     setDirectionsResponse(results);
     setDistance(results.routes[0].legs[0].distance.text);
     setDuration(results.routes[0].legs[0].duration.text);
@@ -180,9 +185,15 @@ const CabBooking = () => {
     const baseKilometers = 20; // In Kiloneters, after 20 kilometers charge/kilometer will be increased
     const basePriceKilometers = 5; // In Kilometers, after 5 Kms base price will not be charged
     const rideTimeCharge = 1; // In rupees, for every minute you will be charged a rupee
+debugger
+    distance = distance && parseFloat(distance.replace(/,/g, '').split(' ')[0]);
+    if(duration && duration.includes('h')){ // if duration is more then or equal to 1 hr
+      duration = parseInt(duration.split(' ')[0]) * 60 + parseInt(duration.split(' ')[2]);
+    }    
+    else {
+      duration = parseInt(duration.split(' ')[0]);
+    }
 
-    distance = distance && parseInt(distance);
-    duration = duration && parseInt(duration);
     switch (cabType) {
       case 0: //Any
         const chargePerKmMini0 = 6;
@@ -217,7 +228,9 @@ const CabBooking = () => {
           serviceTax
         );
 
-        return (`₹${Math.floor(totalFareMini0).toLocaleString('en-US')} - ₹${Math.round(totalFarePrimeExec0).toLocaleString('en-US')}`);
+        return `₹${Math.floor(totalFareMini0).toLocaleString(
+          'en-US'
+        )} - ₹${Math.round(totalFarePrimeExec0).toLocaleString('en-US')}`;
 
       case 1: //Auto
         const chargePerKmAuto = 6;
@@ -365,7 +378,7 @@ const CabBooking = () => {
     totalFare +=
       (chargeOnDistance + chargeOnTime + basePriceCharge) * (serviceTax / 100);
 
-      return totalFare;
+    return totalFare;
   };
 
   const clearRoute = () => {
@@ -396,6 +409,23 @@ const CabBooking = () => {
     if (pickupRef.current.value.trim() === '') {
       setCurrentLocation(null);
     }
+  };
+
+  const redirectToConfirmationPage = (cabTypeId) => {
+    const currentSelectedCab = cabsData.filter(
+      (cabData) => cabData.id === cabTypeId
+    );
+    navigate('/booking-confirmation', {
+      state: {
+        selectedCab: {
+          cabType: getCabName(cabTypeId),
+          fare: currentSelectedCab[0].fare,
+          away: currentSelectedCab[0].away,
+          distance: distance,
+          duration: duration,
+        },
+      },
+    });
   };
 
   return (
@@ -448,6 +478,7 @@ const CabBooking = () => {
               distance={distance}
               duration={duration}
               cabsData={cabsData}
+              redirectToConfirmationPage={redirectToConfirmationPage}
             />
           )}
           <div

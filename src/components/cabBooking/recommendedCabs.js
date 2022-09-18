@@ -1,5 +1,6 @@
 import { render } from '@testing-library/react';
 import React from 'react';
+import getCabName from '../utility/getCabName';
 
 export default function RecommendedCabs(props) {
   const {
@@ -10,28 +11,8 @@ export default function RecommendedCabs(props) {
     distance,
     duration,
     cabsData,
+    redirectToConfirmationPage,
   } = { ...props };
-
-  const renderButtonText = (buttonTextId) => {
-    switch (buttonTextId) {
-      case 1:
-        return 'Any';
-      case 2:
-        return 'Auto';
-      case 3:
-        return 'Mini';
-      case 4:
-        return 'Prime Play';
-      case 5:
-        return 'Prime Sedan';
-      case 6:
-        return 'Prime SUV';
-      case 7:
-        return 'Prime EXEC';
-      default:
-        return 'Any';
-    }
-  };
 
   return (
     <div className='flex flex-col items-center'>
@@ -66,33 +47,45 @@ export default function RecommendedCabs(props) {
             {cabsData?.map((cabData, index) => {
               return (
                 <li
-                key={index}
+                  key={index}
                   className={`${
-                    recommendedSelectedCab === cabData.id ? 'bordered bg-gray-800' : ''
+                    recommendedSelectedCab === cabData.id
+                      ? 'bordered bg-gray-800 ease-in-out duration-150 delay-100'
+                      : ''
                   }`}
                   onClick={() => handleRecommendedCabChange(cabData.id)}
                 >
                   <div className='flex'>
                     <div className='flex flex-col'>
                       <img
-                        className='w-14 h-6'
-                        src={`${require(`../../assets/images/fleet_${cabData.id + 1}.png`)}`}
+                        className={`w-14 h-6 ${recommendedSelectedCab === cabData.id ? 'scale-125 ease-in-out duration-150 delay-100' : ''}`}
+                        src={`${require(`../../assets/images/fleet_${
+                          cabData.id + 1
+                        }.png`)}`}
                         alt='Book any'
                       />
-                      <span className='text-xs'>{cabData.away}</span>
+                      <span className={`text-xs ${recommendedSelectedCab === cabData.id ? 'font-bold ease-in-out duration-150 delay-100' : 'font-normal'}`}>{cabData.away}</span>
                     </div>
-                    <a className={`ml-5 ${recommendedSelectedCab === cabData.id ? 'font-bold' : 'font-normal'}`}>{cabData.name}</a>
-                    <p className='flex-1 text-right'>{cabData.fare}</p>
+                    <a
+                      className={`ml-5 ${
+                        recommendedSelectedCab === cabData.id
+                          ? 'font-bold ease-in-out duration-150 delay-100'
+                          : 'font-normal'
+                      }`}
+                    >
+                      {cabData.name}
+                    </a>
+                    <p className={`flex-1 text-right ${recommendedSelectedCab === cabData.id ? 'font-bold ease-in-out duration-150 delay-100' : 'font-normal'}`}>{cabData.fare}</p>
                   </div>
                 </li>
               );
-            })}            
+            })}
           </ul>
           <button
-            className='btn btn-lg btn-primary rounded-none '
-            // onClick={redirectToCabBookingPage}
+            className='btn btn-lg btn-primary rounded-none'
+            onClick={() => redirectToConfirmationPage(recommendedSelectedCab)}
           >
-            Book {renderButtonText(recommendedSelectedCab)}
+            Book {getCabName(recommendedSelectedCab)}
           </button>
         </div>
       </div>
