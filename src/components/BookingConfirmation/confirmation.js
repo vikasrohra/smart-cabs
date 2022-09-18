@@ -26,7 +26,7 @@ export default function Confirmation(props) {
             <button className='btn btn-sm btn-success'>
               {cabDetails.cabType === 'Any'
                 ? 'Mini - ' + cabDetails.away
-                : cabDetails.cabType + cabDetails.away}
+                : cabDetails.cabType + ' - ' + cabDetails.away}
             </button>
           </div>
         </div>
