@@ -14,49 +14,55 @@ export default function SideForm(props) {
     isGetCurrentLocationIconClicked,
     getReverseGeocodingData,
     center,
-    handlePickUpChange
+    handlePickUpChange,
+    translatePickupDropForm,
+    togglePickupDropFormVisibility,
   } = { ...props };
 
-  useEffect(() => {
-    console.log(
-      'currentLocation, isGetCurrentLocationIconClicked',
-      currentLocation,
-      isGetCurrentLocationIconClicked
-    );
-  }, []);
+  // useEffect(() => {
+  //   console.log(
+  //     'currentLocation, isGetCurrentLocationIconClicked',
+  //     currentLocation,
+  //     isGetCurrentLocationIconClicked
+  //   );
+  // }, []);
 
   return (
-    // <div className='drawer drawer-mobile'>
-    <div className='drawer'>
-      <input id='side-drawer' type='checkbox' className='drawer-toggle' />
-      <div className='drawer-content flex flex-col items-center justify-center fixed'>
-        <div className='tooltip tooltip-right tooltip-info' data-tip='Expand'>
-          <label
-            htmlFor='side-drawer'
-            // className='btn btn-primary drawer-button lg:hidden'
-            className='btn btn-xs btn-active btn-primary rounded-l-none drawer-button -translate-x-0.5 no-animation'
-          >
-            <i className='fa-solid fa-chevron-right'></i>
-          </label>
-        </div>
-      </div>
-      <div className='drawer-side'>
-        <label htmlFor='side-drawer' className='drawer-overlay'></label>
-        <div className='menu p-4 overflow-y-auto w-80 bg-base-100 text-base-content bg-neutral text-neutral-content'>
-          <div className='flex justify-between'>
+    <div
+      className={`card w-[80%] md:w-[40%] lg:w-[30%] xl:w-[22%] bg-base-100 bg-neutral text-neutral-content absolute top-0 left-0 z-40 rounded-l-none rounded-r-none ${
+        translatePickupDropForm ? '' : '-translate-x-[25rem]'
+      } ease-in-out duration-500`}
+    >
+      <div className='card-body text-center w-full h-[100vh] overflow-y-auto p-4'>
+        <div className='w-full'>
+          <div className='flex justify-between items-center'>
             <button
-              className='btn btn-xs btn-ghost'
+              className='btn btn-sm btn-active btn-ghost'
               onClick={handleGoBackHomeClick}
             >
               Go Back Home
             </button>
             <div
-              className='tooltip tooltip-left tooltip-info'
+              className={`label-text-alt tooltip tooltip-left tooltip-info text-xs`}
               data-tip='Collapse'
             >
-              <label htmlFor='side-drawer' className='btn btn-xs btn-ghost'>
-                <i className='fa-solid fa-chevron-left'></i>
-              </label>
+              <button
+                className='btn btn-sm btn-active btn-ghost btn-square'
+                onClick={togglePickupDropFormVisibility}
+              >
+                <svg
+                  className='w-6 h-6'
+                  fill='currentColor'
+                  viewBox='0 0 20 20'
+                  xmlns='http://www.w3.org/2000/svg'
+                >
+                  <path
+                    fillRule='evenodd'
+                    d='M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z'
+                    clipRule='evenodd'
+                  />
+                </svg>
+              </button>
             </div>
           </div>
           <div className='form-control mt-8'>
@@ -64,11 +70,11 @@ export default function SideForm(props) {
               <span className='label-text'>
                 Pickup?
                 <div
-                  className={`label-text-alt tooltip tooltip-right tooltip-warning text-xs`}
+                  className={`label-text-alt tooltip tooltip-right tooltip-info text-xs`}
                   data-tip='Use current location'
                 >
                   <span
-                    className='cursor-pointer btn btn-sm btn-ghost'
+                    className='cursor-pointer btn btn-sm btn-active btn-ghost ml-3'
                     onClick={() => getReverseGeocodingData(center)}
                   >
                     <i className='fa-solid fa-location-arrow'></i>

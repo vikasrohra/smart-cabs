@@ -17,9 +17,8 @@ export default function RecommendedCabs(props) {
   return (
     <div className='flex flex-col items-center'>
       <div
-        className={`card rounded-b-none rounded-t-6 w-[100vw] md:w-[70vw] lg:w-[50vw] bg-base-100 fixed z-40 bottom-0 lg:right-0 xl:right-auto bg-neutral text-neutral-content ${
-          translateRecommendedCabs ? '' : 'translate-y-[24rem]'
-        } ease-in-out duration-500`}
+        className={`card rounded-b-none rounded-t-md w-[100vw] md:w-[70vw] lg:w-[50vw] bg-base-100 fixed z-40 bottom-0 lg:right-0 xl:right-auto bg-neutral text-neutral-content ${
+          translateRecommendedCabs ? '' : 'translate-y-[24rem]'} ease-in-out duration-500`}
       >
         <div className='card-body p-0 pt-4'>
           <div

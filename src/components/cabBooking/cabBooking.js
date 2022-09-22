@@ -19,6 +19,7 @@ const CabBooking = () => {
     useState(false);
   const [translateRecommendedCabs, setTranslateRecommendedCabs] =
     useState(false);
+  const [translatePickupDropForm, setTranslatePickupDropForm] = useState(false);
   const [showRecommendedCabs, setShowRecommendedCabs] = useState(false);
   const [recommendedSelectedCab, setRecommendedSelectedCab] = useState(0);
   const [cabsData, setCabsData] = useState(null);
@@ -178,6 +179,7 @@ const CabBooking = () => {
     setDuration(results.routes[0].legs[0].duration.text);
     setShowRecommendedCabs(true);
     setCabsData(cabsWithFare);
+    togglePickupDropFormVisibility();
   };
 
   const calculateCabFare = (cabType, distance, duration) => {
@@ -185,12 +187,14 @@ const CabBooking = () => {
     const baseKilometers = 20; // In Kiloneters, after 20 kilometers charge/kilometer will be increased
     const basePriceKilometers = 5; // In Kilometers, after 5 Kms base price will not be charged
     const rideTimeCharge = 1; // In rupees, for every minute you will be charged a rupee
-debugger
+    debugger;
     distance = distance && parseFloat(distance.replace(/,/g, '').split(' ')[0]);
-    if(duration && duration.includes('h')){ // if duration is more then or equal to 1 hr
-      duration = parseInt(duration.split(' ')[0]) * 60 + parseInt(duration.split(' ')[2]);
-    }    
-    else {
+    if (duration && duration.includes('h')) {
+      // if duration is more then or equal to 1 hr
+      duration =
+        parseInt(duration.split(' ')[0]) * 60 +
+        parseInt(duration.split(' ')[2]);
+    } else {
       duration = parseInt(duration.split(' ')[0]);
     }
 
@@ -397,6 +401,10 @@ debugger
     setTranslateRecommendedCabs(!translateRecommendedCabs);
   };
 
+  const togglePickupDropFormVisibility = () => {
+    setTranslatePickupDropForm(!translatePickupDropForm);
+  };
+
   const handleRecommendedCabChange = (id) => {
     setRecommendedSelectedCab(id);
   };
@@ -450,6 +458,29 @@ debugger
 
       {isLoaded && (
         <>
+          {/* Pickup and drop form toggler */}
+          <div
+            className={`label-text-alt tooltip tooltip-right tooltip-info text-xs absolute top-4 left-4 z-30`}
+            data-tip='Expand'
+          >
+            <button
+              className='btn btn-sm btn-square'
+              onClick={togglePickupDropFormVisibility}
+            >
+              <svg
+                className='w-6 h-6'
+                fill='currentColor'
+                viewBox='0 0 20 20'
+                xmlns='http://www.w3.org/2000/svg'
+              >
+                <path
+                  fillRule='evenodd'
+                  d='M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z'
+                  clipRule='evenodd'
+                />
+              </svg>
+            </button>
+          </div>
           <SideForm
             calculateRoute={calculateRoute}
             pickupRequiredValidationFlag={pickupRequiredValidationFlag}
@@ -463,6 +494,8 @@ debugger
             center={center}
             isGetCurrentLocationIconClicked={isGetCurrentLocationIconClicked}
             handlePickUpChange={handlePickUpChange}
+            translatePickupDropForm={translatePickupDropForm}
+            togglePickupDropFormVisibility={togglePickupDropFormVisibility}
           />
           <Map
             center={center}
@@ -481,14 +514,28 @@ debugger
               redirectToConfirmationPage={redirectToConfirmationPage}
             />
           )}
+          {/* Re-center current location */}
           <div
-            className='fixed right-3 bottom-52 bg-white p-1 cursor-pointer lg:z-35'
-            onClick={() => map.panTo(center)}
+            className={`label-text-alt tooltip tooltip-left tooltip-info text-xs absolute bottom-4 right-4 z-30`}
+            data-tip='Recenter'
           >
-            <img
-              className='w-8 h-8'
-              src={`${require('../../assets/images/recenter_location.webp')}`}
-            />
+            <button
+              className='btn btn-sm btn-square'
+              onClick={() => map.panTo(center)}
+            >
+              <svg
+                className='w-6 h-6'
+                fill='currentColor'
+                viewBox='0 0 20 20'
+                xmlns='http://www.w3.org/2000/svg'
+              >
+                <path
+                  fillRule='evenodd'
+                  d='M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z'
+                  clipRule='evenodd'
+                />
+              </svg>
+            </button>
           </div>
         </>
       )}
