@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import Header from './header';
 import Services from './services';
 import WhoWeAre from './whoWeAre';
-import CarFleet from './carFleet';
+import FareChart from './fareChart';
 
 const Home = () => {
   const [translateSearchCabsArrow, setTranslateSearchCabsArrow] =
@@ -24,12 +24,13 @@ const Home = () => {
     <>
       <Header
         translateSearchCabsArrow={translateSearchCabsArrow}
-        handleTranslateSearchCabsArrow={handleTranslateSearchCabsArrow} 
+        handleTranslateSearchCabsArrow={handleTranslateSearchCabsArrow}
         redirectToCabBookingPage={redirectToCabBookingPage}
       />
       <Services />
       <WhoWeAre />
-      <CarFleet />
+      {/* Fare chart modal */}
+      <FareChart />
     </>
   );
 };

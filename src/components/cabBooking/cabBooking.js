@@ -91,40 +91,34 @@ const CabBooking = () => {
         name: 'Any',
         away: '2 mins away',
         fare: 0,
-      },
+      },      
       {
         id: 1,
-        name: 'Auto',
-        away: '3 mins away',
-        fare: 0,
-      },
-      {
-        id: 2,
         name: 'Mini',
         away: '3 mins away',
         fare: 0,
       },
       {
-        id: 3,
-        name: 'Prime Play',
+        id: 2,
+        name: 'Smart Play',
         away: '5 mins away',
         fare: 0,
       },
       {
-        id: 4,
-        name: 'Prime Sedan',
+        id: 3,
+        name: 'Smart Sedan',
         away: '6 mins away',
         fare: 0,
       },
       {
-        id: 5,
-        name: 'Prime SUV',
+        id: 4,
+        name: 'Smart SUV',
         away: '8 mins away',
         fare: 0,
       },
       {
-        id: 6,
-        name: 'Prime EXEC',
+        id: 5,
+        name: 'Smart EXEC',
         away: '15 mins away',
         fare: 0,
       },
@@ -187,7 +181,6 @@ const CabBooking = () => {
     const baseKilometers = 20; // In Kiloneters, after 20 kilometers charge/kilometer will be increased
     const basePriceKilometers = 5; // In Kilometers, after 5 Kms base price will not be charged
     const rideTimeCharge = 1; // In rupees, for every minute you will be charged a rupee
-    debugger;
     distance = distance && parseFloat(distance.replace(/,/g, '').split(' ')[0]);
     if (duration && duration.includes('h')) {
       // if duration is more then or equal to 1 hr
@@ -236,26 +229,7 @@ const CabBooking = () => {
           'en-US'
         )} - ₹${Math.round(totalFarePrimeExec0).toLocaleString('en-US')}`;
 
-      case 1: //Auto
-        const chargePerKmAuto = 6;
-        const changedChargePerKmAuto = 12; // Charge after baseKilometers
-        const basePriceAuto = 45;
-
-        const totalFareAuto = calculateDifferentCharges(
-          distance,
-          baseKilometers,
-          chargePerKmAuto,
-          changedChargePerKmAuto,
-          duration,
-          rideTimeCharge,
-          basePriceAuto,
-          basePriceKilometers,
-          serviceTax
-        );
-
-        return `₹${Math.floor(totalFareAuto).toLocaleString('en-US')}`;
-
-      case 2: //Mini
+      case 1: //Mini
         const chargePerKmMini = 11;
         const changedChargePerKMini = 20; // Charge after baseKilometers
         const basePriceMini = 50;
@@ -274,7 +248,7 @@ const CabBooking = () => {
 
         return `₹${Math.floor(totalFareMini).toLocaleString('en-US')}`;
 
-      case 3: //Prime Play
+      case 2: //Smart Play
         const chargePerKmPP = 13;
         const changedChargePerKmPP = 25; // Charge after baseKilometers
         const basePricePP = 60;
@@ -293,7 +267,7 @@ const CabBooking = () => {
 
         return `₹${Math.floor(totalFarePrimePlay).toLocaleString('en-US')}`;
 
-      case 4: //Prime Sedan
+      case 3: //Smart Sedan
         const chargePerKmPS = 15;
         const changedChargePerKmPS = 30; // Charge after baseKilometers
         const basePricePS = 70;
@@ -312,7 +286,7 @@ const CabBooking = () => {
 
         return `₹${Math.floor(totalFarePrimeSedan).toLocaleString('en-US')}`;
 
-      case 5: //Prime SUV
+      case 4: //Smart SUV
         const chargePerKmPSuv = 18;
         const changedChargePerKmPSuv = 35; // Charge after baseKilometers
         const basePricePSuv = 80;
@@ -331,7 +305,7 @@ const CabBooking = () => {
 
         return `₹${Math.floor(totalFarePrimeSuv).toLocaleString('en-US')}`;
 
-      case 6: //Prime EXEC
+      case 5: //Smart EXEC
         const chargePerKmExec = 21;
         const changedChargePerKmExec = 40; // Charge after baseKilometers
         const basePriceExec = 100;
@@ -516,7 +490,7 @@ const CabBooking = () => {
           )}
           {/* Re-center current location */}
           <div
-            className={`label-text-alt tooltip tooltip-left tooltip-info text-xs absolute bottom-4 right-4 z-30`}
+            className={`label-text-alt tooltip tooltip-left tooltip-info text-xs absolute ${translateRecommendedCabs ? 'bottom-4' : 'bottom-20 md:bottom-4 lg:bottom-20 xl:bottom-4' } right-4 z-30`}
             data-tip='Recenter'
           >
             <button

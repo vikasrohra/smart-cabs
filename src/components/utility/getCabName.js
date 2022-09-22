@@ -3,16 +3,14 @@ export default (cabId) => {
       case 0:
         return 'Any';
       case 1:
-        return 'Auto';
-      case 2:
         return 'Mini';
-      case 3:
+      case 2:
         return 'Prime Play';
-      case 4:
+      case 3:
         return 'Prime Sedan';
-      case 5:
+      case 4:
         return 'Prime SUV';
-      case 6:
+      case 5:
         return 'Prime EXEC';
       default:
         return 'Any';

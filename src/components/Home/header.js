@@ -31,37 +31,15 @@ const Header = (props) => {
             >
               <li>
                 <a>Home</a>
-              </li>
-              <li tabIndex={0}>
-                <a className='justify-between'>
-                  Company
-                  <svg
-                    className='fill-current'
-                    xmlns='http://www.w3.org/2000/svg'
-                    width='24'
-                    height='24'
-                    viewBox='0 0 24 24'
-                  >
-                    <path d='M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z' />
-                  </svg>
-                </a>
-                <ul className='p-2 bg-base-100 ml-[0.670rem]'>
-                  <li>
-                    <a>About Us</a>
-                  </li>
-                  <li>
-                    <a>How SmartCabs Works</a>
-                  </li>
-                </ul>
-              </li>
+              </li>              
               <li>
-                <a>Services</a>
+                <label htmlFor="fare-chart-modal">Fare Chart</label>
               </li>
             </ul>
           </div>
           <a className='btn btn-ghost normal-case text-xl font-normal'>
             <img
-              src={`${require('../../assets/images/4781517.png')}`}
+              src={`${require('../../assets/images/logo.png')}`}
               className='w-10 h-10 -ml-4 lg:ml-0'
               alt='SmartCabs Logo'
             />
@@ -73,31 +51,9 @@ const Header = (props) => {
           <ul className='menu menu-horizontal p-0'>
             <li>
               <a>Home</a>
-            </li>
-            <li tabIndex={0}>
-              <a>
-                Company
-                <svg
-                  className='fill-current'
-                  xmlns='http://www.w3.org/2000/svg'
-                  width='20'
-                  height='20'
-                  viewBox='0 0 24 24'
-                >
-                  <path d='M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z' />
-                </svg>
-              </a>
-              <ul className='p-2 bg-base-100'>
-                <li>
-                  <a>About Us</a>
-                </li>
-                <li>
-                  <a>How SmartCabs Works</a>
-                </li>
-              </ul>
-            </li>
+            </li>            
             <li>
-              <a>Services</a>
+              <label htmlFor="fare-chart-modal">Fare Chart</label>
             </li>
           </ul>
         </div>
@@ -181,7 +137,7 @@ const Header = (props) => {
       <div
         className='hero min-h-screen'
         style={{
-          backgroundImage: `url(${require('../../assets/images/back_image.jpg')})`,
+          backgroundImage: `url(${require('../../assets/images/back_image.webp')})`,
         }}
       >
         <div className='hero-overlay bg-opacity-60'></div>
@@ -206,11 +162,10 @@ const Header = (props) => {
               Book a Smart Cab
               <img
                 src={`${require('../../assets/images/fleet_1.png')}`}
-                className={`w-14 h-6 ml-2 ${
-                  translateSearchCabsArrow
+                className={`w-14 h-6 ml-2 ${translateSearchCabsArrow
                     ? 'translate-x-4 ease-in-out duration-150 delay-100'
                     : 'translate-x-0 ease-in-out duration-150 delay-100'
-                }`}
+                  }`}
               />
             </button>
           </div>
