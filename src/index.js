@@ -5,7 +5,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import CabBooking from './components/cabBooking/cabBooking';
+import CabBooking from './components/CabBooking/cabBooking';
 import BookingConfirmation from './components/BookingConfirmation/bookingConfirmation';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
