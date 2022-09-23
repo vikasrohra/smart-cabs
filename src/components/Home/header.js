@@ -31,7 +31,7 @@ const Header = (props) => {
             >
               <li>
                 <a>Home</a>
-              </li>              
+              </li>
               <li>
                 <label htmlFor="fare-chart-modal">Fare Chart</label>
               </li>
@@ -39,6 +39,7 @@ const Header = (props) => {
           </div>
           <a className='btn btn-ghost normal-case text-xl font-normal'>
             <img
+              alt="logo"
               src={`${require('../../assets/images/logo.png')}`}
               className='w-10 h-10 -ml-4 lg:ml-0'
               alt='SmartCabs Logo'
@@ -51,7 +52,7 @@ const Header = (props) => {
           <ul className='menu menu-horizontal p-0'>
             <li>
               <a>Home</a>
-            </li>            
+            </li>
             <li>
               <label htmlFor="fare-chart-modal">Fare Chart</label>
             </li>
@@ -61,7 +62,7 @@ const Header = (props) => {
           <div className='dropdown dropdown-end'>
             <label tabIndex={0} className='btn btn-circle avatar'>
               <div className='w-10 rounded-full'>
-                <img src={`${require('../../assets/images/owner.png')}`} />
+                <img src={`${require('../../assets/images/owner.png')}`} alt="owner" />
               </div>
             </label>
             <ul
@@ -162,9 +163,10 @@ const Header = (props) => {
               Book a Smart Cab
               <img
                 src={`${require('../../assets/images/fleet_1.png')}`}
+                alt="car"
                 className={`w-14 h-6 ml-2 ${translateSearchCabsArrow
-                    ? 'translate-x-4 ease-in-out duration-150 delay-100'
-                    : 'translate-x-0 ease-in-out duration-150 delay-100'
+                  ? 'translate-x-4 ease-in-out duration-150 delay-100'
+                  : 'translate-x-0 ease-in-out duration-150 delay-100'
                   }`}
               />
             </button>

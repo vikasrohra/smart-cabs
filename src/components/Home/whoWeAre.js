@@ -4,7 +4,7 @@ const WhoWeAre = () => {
       {/* Who We Are */}
       <div className='hero min-h-screen bg-base-200'>
         <div className='hero-content flex-col lg:flex-row-reverse'>
-          <img src={`${require('../../assets/images/cab.png')}`} className='' />
+          <img src={`${require('../../assets/images/cab.png')}`} alt="services"  />
           <div className='text-center mt-5 lg:text-left lg:mt-0'>
             <h1 className='text-5xl font-bold'>Who We Are</h1>
             <p className='py-6 mb-3'>

@@ -5,7 +5,7 @@ const Services = () => {
       <div className='card bg-base-100 shadow-xl w-full rounded-none px-4 md:px-7 lg:px-4 xl:px-7'>
         <div className='card-body flex flex-col space-y-6 md:space-y-0 md:flex-row md:flex-wrap xl:flex-nowrap px-0'>
           <div className='flex items-center md:mb-6 xl:mb-0 md:w-[49%]'>
-            <img src={`${require('../../assets/images/offer_icon1.png')}`} />
+            <img src={`${require('../../assets/images/offer_icon1.png')}`} alt="services" />
             <p className='flex flex-col text-left ml-3'>
               <span className='text-lg font-semibold'>
                 Best Price Guaranteed
@@ -16,7 +16,7 @@ const Services = () => {
             </p>
           </div>
           <div className='flex items-center md:items-start lg:items-center md:mb-6 xl:mb-0 md:w-[49%]'>
-            <img src={`${require('../../assets/images/offer_icon2.png')}`} />
+            <img src={`${require('../../assets/images/offer_icon2.png')}`} alt="services" />
             <p className='flex flex-col text-left ml-3'>
               <span className='text-lg font-semibold'>24/7 Customer Care</span>
               <span className='text-md font-light'>
@@ -25,7 +25,7 @@ const Services = () => {
             </p>
           </div>
           <div className='flex items-center md:w-[49%]'>
-            <img src={`${require('../../assets/images/offer_icon3.png')}`} />
+            <img src={`${require('../../assets/images/offer_icon3.png')}`} alt="services" />
             <p className='flex flex-col text-left ml-3'>
               <span className='text-lg font-semibold'>Home Pickups</span>
               <span className='text-md font-light'>
@@ -34,7 +34,7 @@ const Services = () => {
             </p>
           </div>
           <div className='flex items-center md:w-[49%]'>
-            <img src={`${require('../../assets/images/offer_icon4.png')}`} />
+            <img src={`${require('../../assets/images/offer_icon4.png')}`} alt="services" />
             <p className='flex flex-col text-left ml-3'>
               <span className='text-lg font-semibold'>Easy Bookings</span>
               <span className='text-md font-light'>

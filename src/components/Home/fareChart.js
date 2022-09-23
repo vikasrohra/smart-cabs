@@ -3,7 +3,7 @@ const FareChart = () => {
         <>
             <input type="checkbox" id="fare-chart-modal" className="modal-toggle" />
             <label htmlFor="fare-chart-modal" className="modal modal-bottom sm:modal-middle cursor-pointer">
-                <label className="modal-box relative border border-gray-700 shadow-inner" for="">
+                <label className="modal-box relative border border-gray-700 shadow-inner" htmlFor=''>
                     <label htmlFor="fare-chart-modal" className="btn btn-sm btn-circle absolute right-2 top-2">✕</label>
                     <h3 className="text-lg font-bold">Fare Chart</h3>
                     <div className="py-16 w-full">

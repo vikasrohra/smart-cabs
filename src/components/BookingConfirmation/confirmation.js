@@ -8,7 +8,7 @@ export default function Confirmation(props) {
   const navigate = useNavigate();
 
   return (
-    <div className='flex flex-col justify-center items-center h-screen'>
+    <div className='flex flex-col justify-center items-center h-auto'>
       <h1 className='text-2xl text-base font-bold mt-4 text-center'>
         Congratulations! your Smart ride with{' '}
         {cabDetails.cabType === 'Any' ? 'Mini' : cabDetails.cabType} cab is booked
