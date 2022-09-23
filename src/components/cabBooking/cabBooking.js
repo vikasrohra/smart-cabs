@@ -487,7 +487,7 @@ const CabBooking = () => {
           )}
           {/* Re-center current location con */}
           <div
-            className={`label-text-alt tooltip tooltip-left tooltip-info text-xs absolute ${translateRecommendedCabs ? 'bottom-4' : 'bottom-20 md:bottom-4 lg:bottom-20 xl:bottom-4'} right-4 z-30`}
+            className={`label-text-alt tooltip tooltip-left tooltip-info text-xs absolute ${showRecommendedCabs ? 'bottom-20 md:bottom-4 lg:bottom-20 xl:bottom-4' : 'bottom-4'} right-4 z-30`}
             data-tip='Recenter'
           >
             <button

@@ -8,7 +8,7 @@ const WhoWeAre = () => {
           <div className='text-center mt-5 lg:text-left lg:mt-0'>
             <h1 className='text-5xl font-bold'>Who We Are</h1>
             <p className='py-6 mb-3'>
-            SmartCabs is a mobility platform, serving many cities across India. The SmartCabs offers mobility solutions by connecting customers to drivers and a wide range of vehicles across bikes, auto-rickshaws, metered taxis, and cabs, enabling convenience and transparency for hundreds of millions of consumers and over 1.5 million driver-partners.
+            SmartCabs is a mobility platform, serving many cities across India. The SmartCabs offers mobility solutions by connecting customers to drivers and a wide range of vehicles across bikes, auto-rickshaws, metered taxis, and cabs, enabling convenience and transparency for hundreds of consumers and over 10K driver-partners.
             </p>
             {/* Stats */}
             <div className='stats stats-vertical md:stats-horizontal shadow'>
