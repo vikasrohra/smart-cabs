@@ -73,7 +73,18 @@ _Calculations,_
   - HTML
   - CSS
 
-## Screenshots
+## Screenshots 
+  ![Header Screenshot](https://github.com/vikasrohra/smart-cabs/blob/main/src/assets/images/screenshots/ss1.png "SmartCabs - Header")
+  
+  ![Header Screenshot](https://github.com/vikasrohra/smart-cabs/blob/main/src/assets/images/screenshots/ss2.png "SmartCabs - Who We Are")
+  
+  ![Header Screenshot](https://github.com/vikasrohra/smart-cabs/blob/main/src/assets/images/screenshots/ss3.png "SmartCabs - Current Location on Map")
+  
+  ![Header Screenshot](https://github.com/vikasrohra/smart-cabs/blob/main/src/assets/images/screenshots/ss4.png "SmartCabs - Distance Lighter from Pickup and Drop")
+  
+  ![Header Screenshot](https://github.com/vikasrohra/smart-cabs/blob/main/src/assets/images/screenshots/ss5.png "SmartCabs - Recomended Cabs")
+  
+  ![Header Screenshot](https://github.com/vikasrohra/smart-cabs/blob/main/src/assets/images/screenshots/ss6.png "SmartCabs - Booking Confirmation")
 
 ## Live Preview
   [SmartCabs](https://smart-cabs.netlify.app/)
