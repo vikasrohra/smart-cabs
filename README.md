@@ -1,6 +1,6 @@
-# Getting Started with Create React App
+# SmartCabs - A Cab Fare Predictor
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project is a part of hackathon organized by [FindCoder](https://www.findcoder.io/challenges/build-a-cab-fare-predictor/631cb1aeef470184194e06b5).
 
 ## Available Scripts
 
