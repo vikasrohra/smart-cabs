@@ -6,7 +6,7 @@ const FareChart = () => {
                 <label className="modal-box relative border border-gray-700 shadow-inner" htmlFor=''>
                     <label htmlFor="fare-chart-modal" className="btn btn-sm btn-circle absolute right-2 top-2">✕</label>
                     <h3 className="text-lg font-bold">Fare Chart</h3>
-                    <div className="py-16 w-full">
+                    <div className="pt-14 pb-2 w-full">
                         <section className="text-gray-600 body-font">
                             <div className="container mx-auto">
                                 <div className="flex items-center mx-auto border-b pb-10 mb-10 border-gray-500 sm:flex-row flex-col">
@@ -30,11 +30,7 @@ const FareChart = () => {
                                         <p>
                                             <span className='text-sm text-gray-400'>Ride Time Charge:</span>
                                             <span className="badge badge-sm badge-primary ml-2">₹1/min</span>
-                                        </p>
-                                        <p>
-                                            <span className='text-sm text-gray-400'>Service Tax:</span>
-                                            <span className="badge badge-sm badge-error ml-2">5.6%</span>
-                                        </p>
+                                        </p>                                        
                                     </div>
                                 </div>
                                 <div className="flex items-center mx-auto border-b pb-10 mb-10 border-gray-500 sm:flex-row flex-col">
@@ -51,11 +47,7 @@ const FareChart = () => {
                                         <p>
                                             <span className='text-sm text-gray-400'>Ride Time Charge:</span>
                                             <span className="badge badge-sm badge-primary ml-2">₹1/min</span>
-                                        </p>
-                                        <p>
-                                            <span className='text-sm text-gray-400'>Service Tax:</span>
-                                            <span className="badge badge-sm badge-error ml-2">5.6%</span>
-                                        </p>
+                                        </p>                                        
                                     </div>
                                     <div className="sm:w-24 sm:order-none order-first sm:h-24 h-20 w-20 sm:ml-10 inline-flex items-center justify-center rounded-full bg-indigo-100 text-indigo-500 flex-shrink-0">
                                         <img
@@ -86,11 +78,7 @@ const FareChart = () => {
                                         <p>
                                             <span className='text-sm text-gray-400'>Ride Time Charge:</span>
                                             <span className="badge badge-sm badge-primary ml-2">₹1/min</span>
-                                        </p>
-                                        <p>
-                                            <span className='text-sm text-gray-400'>Service Tax:</span>
-                                            <span className="badge badge-sm badge-error ml-2">5.6%</span>
-                                        </p>
+                                        </p>                                        
                                     </div>
                                 </div>
                                 <div className="flex items-center mx-auto border-b pb-10 mb-10 border-gray-500 sm:flex-row flex-col">
@@ -107,11 +95,7 @@ const FareChart = () => {
                                         <p>
                                             <span className='text-sm text-gray-400'>Ride Time Charge:</span>
                                             <span className="badge badge-sm badge-primary ml-2">₹1/min</span>
-                                        </p>
-                                        <p>
-                                            <span className='text-sm text-gray-400'>Service Tax:</span>
-                                            <span className="badge badge-sm badge-error ml-2">5.6%</span>
-                                        </p>
+                                        </p>                                        
                                     </div>
                                     <div className="sm:w-24 sm:order-none order-first sm:h-24 h-20 w-20 sm:ml-10 inline-flex items-center justify-center rounded-full bg-indigo-100 text-indigo-500 flex-shrink-0">
                                         <img
@@ -142,12 +126,21 @@ const FareChart = () => {
                                         <p>
                                             <span className='text-sm text-gray-400'>Ride Time Charge:</span>
                                             <span className="badge badge-sm badge-primary ml-2">₹1/min</span>
-                                        </p>
-                                        <p>
-                                            <span className='text-sm text-gray-400'>Service Tax:</span>
-                                            <span className="badge badge-sm badge-error ml-2">5.6%</span>
-                                        </p>
+                                        </p>                                        
                                     </div>
+                                </div>
+                            </div>
+                            <div className='flex items-start mx-auto flex-col mt-20'>
+                                <div className='mx-auto'>
+                                    <span className='text-lg font-semibold text-gray-400'>Applicable to all cabs</span>
+                                </div>
+                                <div className='mt-4'>
+                                    <span className='text-sm text-gray-400'>Night charges:</span>
+                                    <span className="badge badge-error badge-sm ml-2">1.5x (Between 10 PM to 5 AM)</span>
+                                </div>
+                                <div>
+                                    <span className='text-sm text-gray-400'>Service Tax:</span>
+                                    <span className="badge badge-error badge-sm ml-2">5.6%</span>
                                 </div>
                             </div>
                         </section>

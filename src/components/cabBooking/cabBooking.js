@@ -182,7 +182,9 @@ const CabBooking = () => {
     const baseKilometers = 20; // In Kiloneters, after 20 kilometers charge/kilometer will be increased
     const basePriceKilometers = 5; // In Kilometers, after 5 Kms base price will not be charged
     const rideTimeCharge = 1; // In rupees, for every minute you will be charged a rupee
+
     distance = distance && parseFloat(distance.replace(/,/g, '').split(' ')[0]);
+
     if (duration && duration.includes('h')) {
       // if duration is more then or equal to 1 hr
       duration =
@@ -190,6 +192,28 @@ const CabBooking = () => {
         parseInt(duration.split(' ')[2]);
     } else {
       duration = parseInt(duration.split(' ')[0]);
+    }
+
+    let nightCharges = 0; // Initially default night charges are 0
+    const currentDate = new Date();
+    const currentTime = [currentDate.getHours(), currentDate.getMinutes()];
+
+    // Night charges are applicable from 10 PM to 5 AM
+    if (currentTime[0] <= 5 || currentTime[0] === 22 || currentTime[0] === 23) {
+      if (currentTime[1] < 30) {
+        currentTime[1] = 0;
+      }
+      else {
+        if (currentTime[0] === 23) {
+          currentTime[0] = 0;
+          currentTime[1] = 0;
+        }
+        else {
+          currentTime[1] = 1;
+        }
+      }
+
+      nightCharges += currentTime[0] + currentTime[1];
     }
 
     switch (cabType) {
@@ -211,7 +235,8 @@ const CabBooking = () => {
           rideTimeCharge,
           basePriceMini0,
           basePriceKilometers,
-          serviceTax
+          serviceTax,
+          nightCharges
         );
 
         const totalFarePrimeExec0 = calculateDifferentCharges(
@@ -223,7 +248,8 @@ const CabBooking = () => {
           rideTimeCharge,
           basePricePrimeExec0,
           basePriceKilometers,
-          serviceTax
+          serviceTax,
+          nightCharges
         );
 
         return `₹${Math.floor(totalFareMini0).toLocaleString(
@@ -244,7 +270,8 @@ const CabBooking = () => {
           rideTimeCharge,
           basePriceMini,
           basePriceKilometers,
-          serviceTax
+          serviceTax,
+          nightCharges
         );
 
         return `₹${Math.floor(totalFareMini).toLocaleString('en-US')}`;
@@ -263,7 +290,8 @@ const CabBooking = () => {
           rideTimeCharge,
           basePricePP,
           basePriceKilometers,
-          serviceTax
+          serviceTax,
+          nightCharges
         );
 
         return `₹${Math.floor(totalFarePrimePlay).toLocaleString('en-US')}`;
@@ -282,7 +310,8 @@ const CabBooking = () => {
           rideTimeCharge,
           basePricePS,
           basePriceKilometers,
-          serviceTax
+          serviceTax,
+          nightCharges
         );
 
         return `₹${Math.floor(totalFarePrimeSedan).toLocaleString('en-US')}`;
@@ -301,7 +330,8 @@ const CabBooking = () => {
           rideTimeCharge,
           basePricePSuv,
           basePriceKilometers,
-          serviceTax
+          serviceTax,
+          nightCharges
         );
 
         return `₹${Math.floor(totalFarePrimeSuv).toLocaleString('en-US')}`;
@@ -320,14 +350,15 @@ const CabBooking = () => {
           rideTimeCharge,
           basePriceExec,
           basePriceKilometers,
-          serviceTax
+          serviceTax,
+          nightCharges
         );
 
         return `₹${Math.floor(totalFarePrimeExec).toLocaleString('en-US')}`;
-    
+
       default:
         return `₹0`;
-      }
+    }
   };
 
   // Calculate cabs fare based on different parameters 
@@ -340,7 +371,8 @@ const CabBooking = () => {
     rideTimeCharge,
     basePrice,
     basePriceKilometers,
-    serviceTax
+    serviceTax,
+    nightCharges
   ) => {
     // Charge on distance
     let chargeOnDistance = 0;
@@ -358,8 +390,15 @@ const CabBooking = () => {
     let basePriceCharge = basePrice * basePriceKilometers;
 
     let totalFare = chargeOnDistance + chargeOnTime + basePriceCharge;
+
+    // Serice charge
     totalFare +=
       (chargeOnDistance + chargeOnTime + basePriceCharge) * (serviceTax / 100);
+
+      // Night fare charge if applicable
+      if(nightCharges > 0){
+        totalFare *= nightCharges;
+      }
 
     return totalFare;
   };
