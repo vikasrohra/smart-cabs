@@ -1,5 +1,7 @@
-import { render } from '@testing-library/react';
+// Library imports
 import React from 'react';
+
+// Component imports
 import getCabName from '../utility/getCabName';
 
 export default function RecommendedCabs(props) {
@@ -41,7 +43,7 @@ export default function RecommendedCabs(props) {
             </span>
           </div>
           <ul className='menu bg-neutral text-neutral-content h-72 overflow-y-auto'>
-            {/* Show Skeleton */}
+            {/* Show Skeleton/Loader */}
             {!cabsData && null}
             {cabsData?.map((cabData, index) => {
               return (

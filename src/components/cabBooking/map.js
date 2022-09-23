@@ -20,7 +20,6 @@ const Map = (props) => {
   return (
     <>
       {/* Google Map Section */}
-      {/* <section className='w-full h-[100vh] absolute top-0 -z-50'> */}
       <section className='w-full h-[100vh]'>
         <GoogleMap
             center={center}

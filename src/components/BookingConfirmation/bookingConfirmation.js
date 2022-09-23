@@ -1,6 +1,9 @@
-import React, { useEffect, useState } from 'react'
-import { useLocation } from 'react-router-dom'
-import Confirmation from './confirmation'
+// Library imports
+import React, { useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
+
+// Component imports
+import Confirmation from './confirmation';
 
 export default function BookingConfirmation() {
   const [cabDetails, setCabDetails] = useState(null);

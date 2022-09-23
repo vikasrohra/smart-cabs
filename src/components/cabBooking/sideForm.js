@@ -1,4 +1,5 @@
-import React, { useEffect } from 'react';
+// Library imports
+import React from 'react';
 import { Autocomplete } from '@react-google-maps/api';
 
 export default function SideForm(props) {
@@ -18,14 +19,6 @@ export default function SideForm(props) {
     translatePickupDropForm,
     togglePickupDropFormVisibility,
   } = { ...props };
-
-  // useEffect(() => {
-  //   console.log(
-  //     'currentLocation, isGetCurrentLocationIconClicked',
-  //     currentLocation,
-  //     isGetCurrentLocationIconClicked
-  //   );
-  // }, []);
 
   return (
     <div
@@ -65,6 +58,7 @@ export default function SideForm(props) {
               </button>
             </div>
           </div>
+          {/* Pickup */}
           <div className='form-control mt-8'>
             <label className='label'>
               <span className='label-text'>
@@ -81,12 +75,7 @@ export default function SideForm(props) {
                   </span>
                 </div>
               </span>
-            </label>
-            {/* <input
-              type='text'
-              placeholder='Type here'
-              className='input input-bordered w-full max-w-xs'
-            /> */}
+            </label>            
             <div className='indicator w-full'>
               {pickupRequiredValidationFlag && (
                 <span className='indicator-item badge badge-error right-9'>
@@ -128,15 +117,11 @@ export default function SideForm(props) {
               )}
             </label>
           </div>
+          {/* Drop */}
           <div className='form-control mt-0'>
             <label className='label'>
               <span className='label-text'>Drop?</span>
-            </label>
-            {/* <input
-              type='text'
-              placeholder='Type here'
-              className='input input-bordered w-full max-w-xs'
-            /> */}
+            </label>            
             <div className='indicator w-full'>
               {dropRequiredValidationFlag && (
                 <span className='indicator-item badge badge-error right-9'>
@@ -164,6 +149,7 @@ export default function SideForm(props) {
               </label>
             )}
           </div>
+          {/* Action Buttons */}
           <div className='mt-12 flex justify-end'>
             <div
               className='tooltip tooltip-bottom tooltip-warning'

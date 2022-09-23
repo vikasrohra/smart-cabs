@@ -1,21 +1,25 @@
+// Library imports
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+// Component imports
 import Header from './header';
 import Services from './services';
 import WhoWeAre from './whoWeAre';
 import FareChart from './fareChart';
 
 const Home = () => {
-  const [translateSearchCabsArrow, setTranslateSearchCabsArrow] =
-    useState(false);
+  // State to handle animation for "Book A Smart Ride" button
+  const [translateSearchCabsArrow, setTranslateSearchCabsArrow] = useState(false);
 
   let navigate = useNavigate();
 
+  // Redirection to a cab booking page
   const redirectToCabBookingPage = () => {
     navigate('/cab-booking');
   }
 
+  // To enable/disable animation of a "Book A Smart Ride" button
   const handleTranslateSearchCabsArrow = (isTranslate) => {
     setTranslateSearchCabsArrow(isTranslate);
   };
@@ -29,7 +33,6 @@ const Home = () => {
       />
       <Services />
       <WhoWeAre />
-      {/* Fare chart modal */}
       <FareChart />
     </>
   );

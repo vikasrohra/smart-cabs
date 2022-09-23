@@ -11,7 +11,7 @@ const Services = () => {
                 Best Price Guaranteed
               </span>
               <span className='text-md font-light'>
-                A more recently with desktop softy like aldus page maker.
+                From Sedans and SUVs to Luxury cars for special occasions, we have cabs to suit every pocket
               </span>
             </p>
           </div>
@@ -20,7 +20,7 @@ const Services = () => {
             <p className='flex flex-col text-left ml-3'>
               <span className='text-lg font-semibold'>24/7 Customer Care</span>
               <span className='text-md font-light'>
-                A more recently with desktop softy like aldus page maker.
+                A dedicated 24x7 customer support team always at your service to help solve any problem
               </span>
             </p>
           </div>
@@ -29,7 +29,7 @@ const Services = () => {
             <p className='flex flex-col text-left ml-3'>
               <span className='text-lg font-semibold'>Home Pickups</span>
               <span className='text-md font-light'>
-                A more recently with desktop softy like aldus page maker.
+                Home pickups is just few steps away
               </span>
             </p>
           </div>

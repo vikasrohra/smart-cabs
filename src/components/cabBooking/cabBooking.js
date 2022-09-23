@@ -1,33 +1,30 @@
-import Header from '../Home/header';
+// Library imports
+import { useNavigate } from 'react-router-dom';
+import { useState, useRef, useEffect } from 'react';
+import { useJsApiLoader } from '@react-google-maps/api';
+
+// Component imports
 import RecommendedCabs from './recommendedCabs';
 import Map from './map';
 import SideForm from './sideForm';
-
-import { useLocation, useNavigate } from 'react-router-dom';
-import { useState, useRef, useEffect } from 'react';
-//Map imports
-import { useJsApiLoader } from '@react-google-maps/api';
 import getCabName from '../utility/getCabName';
 
 // Map Constants
 const LIBRARIES = ['places'];
 
 const CabBooking = () => {
-  const [pickupRequiredValidationFlag, setPickupRequiredValidationFlag] =
-    useState(false);
-  const [dropRequiredValidationFlag, setdropRequiredValidationFlag] =
-    useState(false);
-  const [translateRecommendedCabs, setTranslateRecommendedCabs] =
-    useState(false);
-  const [translatePickupDropForm, setTranslatePickupDropForm] = useState(false);
+  const [pickupRequiredValidationFlag, setPickupRequiredValidationFlag] = useState(false);
+  const [dropRequiredValidationFlag, setdropRequiredValidationFlag] = useState(false);
+  const [translateRecommendedCabs, setTranslateRecommendedCabs] = useState(false);
+  const [translatePickupDropForm, setTranslatePickupDropForm] = useState(true);
   const [showRecommendedCabs, setShowRecommendedCabs] = useState(false);
   const [recommendedSelectedCab, setRecommendedSelectedCab] = useState(0);
   const [cabsData, setCabsData] = useState(null);
+  const [isGetCurrentLocationIconClicked, setIsGetCurrentLocationIconClicked] = useState(false);
+
   // Map state
   const [center, setCenter] = useState({ lat: 19.075983, lng: 72.877655 });
   const [currentLocation, setCurrentLocation] = useState('');
-  const [isGetCurrentLocationIconClicked, setIsGetCurrentLocationIconClicked] =
-    useState(false);
   const [map, setMap] = useState(/** @type google.maps.Map */ null);
   const [directionsResponse, setDirectionsResponse] = useState(null);
   const [distance, setDistance] = useState('');
@@ -42,14 +39,15 @@ const CabBooking = () => {
   const pickupRef = useRef();
   const dropRef = useRef();
 
-  const location = useLocation();
   let navigate = useNavigate();
 
+  // A Hook to load the Google map
   const { isLoaded } = useJsApiLoader({
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
     libraries: [...LIBRARIES],
   });
 
+  // Get the current location of a user
   const getCurrentLocation = () => {
     navigator.geolocation.getCurrentPosition(function (position) {
       setCenter(() => {
@@ -61,6 +59,7 @@ const CabBooking = () => {
     });
   };
 
+  // Get location from current latitude and longitude
   function getReverseGeocodingData(currLatLng) {
     // eslint-disable-next-line no-undef
     var latlng = new google.maps.LatLng(currLatLng.lat, currLatLng.lng);
@@ -74,8 +73,7 @@ const CabBooking = () => {
       }
       // This is checking to see if the Geoeode Status is OK before proceeding
       // eslint-disable-next-line no-undef
-      if (status == google.maps.GeocoderStatus.OK) {
-        // console.log(results);
+      if (status === google.maps.GeocoderStatus.OK) {
         var address = results[0].formatted_address;
         setCurrentLocation(address);
       }
@@ -84,6 +82,7 @@ const CabBooking = () => {
     setIsGetCurrentLocationIconClicked(true);
   }
 
+  // Initialize cabs data
   const initializeCabsFare = () => {
     const cabs = [
       {
@@ -126,6 +125,7 @@ const CabBooking = () => {
     setCabsData(cabs);
   };
 
+  // Calculate route between pickup and drop locations
   const calculateRoute = async () => {
     if (
       pickupRef.current.value.trim() === '' &&
@@ -176,6 +176,7 @@ const CabBooking = () => {
     togglePickupDropFormVisibility();
   };
 
+  // Calculate cabs fare
   const calculateCabFare = (cabType, distance, duration) => {
     const serviceTax = 5.6; // In Percentage, charged at the total fare
     const baseKilometers = 20; // In Kiloneters, after 20 kilometers charge/kilometer will be increased
@@ -323,9 +324,13 @@ const CabBooking = () => {
         );
 
         return `₹${Math.floor(totalFarePrimeExec).toLocaleString('en-US')}`;
-    }
+    
+      default:
+        return `₹0`;
+      }
   };
 
+  // Calculate cabs fare based on different parameters 
   const calculateDifferentCharges = (
     distance,
     baseKilometers,
@@ -359,6 +364,7 @@ const CabBooking = () => {
     return totalFare;
   };
 
+  // Clear all routing between pickup and drop
   const clearRoute = () => {
     setDirectionsResponse(null);
     setDistance('');
@@ -369,6 +375,7 @@ const CabBooking = () => {
     setdropRequiredValidationFlag(false);
     setShowRecommendedCabs(false);
     setCurrentLocation('');
+    initializeCabsFare();
   };
 
   const toggleRecommendedCabsVisibility = () => {
@@ -383,6 +390,7 @@ const CabBooking = () => {
     setRecommendedSelectedCab(id);
   };
 
+  // Navigate to Home page
   const handleGoBackHomeClick = () => {
     navigate('/');
   };
@@ -421,7 +429,7 @@ const CabBooking = () => {
 
       {isLoaded && (
         <>
-          {/* Pickup and drop form toggler */}
+          {/* Pickup and drop form toggler icon */}
           <div
             className={`label-text-alt tooltip tooltip-right tooltip-info text-xs absolute top-4 left-4 z-30`}
             data-tip='Expand'
@@ -477,7 +485,7 @@ const CabBooking = () => {
               redirectToConfirmationPage={redirectToConfirmationPage}
             />
           )}
-          {/* Re-center current location */}
+          {/* Re-center current location con */}
           <div
             className={`label-text-alt tooltip tooltip-left tooltip-info text-xs absolute ${translateRecommendedCabs ? 'bottom-4' : 'bottom-20 md:bottom-4 lg:bottom-20 xl:bottom-4'} right-4 z-30`}
             data-tip='Recenter'
