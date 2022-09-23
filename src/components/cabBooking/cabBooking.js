@@ -218,9 +218,9 @@ const CabBooking = () => {
 
     switch (cabType) {
       case 0: //Any
-        const chargePerKmMini0 = 6;
-        const changedChargePerKmMini0 = 12; // Charge after baseKilometers
-        const basePriceMini0 = 45;
+        const chargePerKmMini0 = 11;
+        const changedChargePerKmMini0 = 20; // Charge after baseKilometers
+        const basePriceMini0 = 50;
 
         const chargePerKmPrimeExec0 = 21;
         const changedChargePerKmPrimeExec0 = 40; // Charge after baseKilometers
