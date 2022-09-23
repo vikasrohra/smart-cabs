@@ -1,70 +1,82 @@
-# SmartCabs - A Cab Fare Predictor
+# SmartCabs - A Smart Cab Fare Predictor
 
 This project is a part of hackathon organized by [FindCoder](https://www.findcoder.io/challenges/build-a-cab-fare-predictor/631cb1aeef470184194e06b5).
 
-## Available Scripts
+## About SmartCabs
+SmartCabs is a fare predictor website depending on distance, estimated time, and time of the day.
 
-In the project directory, you can run:
+## Features
+  - Smart autocomplete for places
+  - A path highligter to show a path from your pickup location to your drop location
+  - Smart fare calculator
+  - A wide variety of cabs available to select that suit every pocket
 
-### `npm start`
+## Fare Chart
+- ### Mini
+  - Charge/KM: `₹11 for first 20 KMs after that ₹20/KM`
+  - Base Price: `₹50 for first 5 KMs`
+  - Ride Time Charge: `₹1/min`
+- ### Smart Play
+  - Charge/KM: `₹13 for first 20 KMs after that ₹25/KM`
+  - Base Price: `₹60 for first 5 KMs`
+  - Ride Time Charge: `₹1/min`
+- ### Smart Sedan
+  - Charge/KM: `₹15 for first 20 KMs after that ₹30/KM`
+  - Base Price: `₹70 for first 5 KMs`
+  - Ride Time Charge: `₹1/min`
+- ### Smart SUV
+  - Charge/KM: `₹18 for first 20 KMs after that ₹35/KM`
+  - Base Price: `₹80 for first 5 KMs`
+  - Ride Time Charge: `₹1/min`
+- ### Smart EXEC
+  - Charge/KM: `₹21 for first 20 KMs after that ₹40/KM`
+  - Base Price: `₹100 for first 5 KMs`
+  - Ride Time Charge: `₹1/min`
+- ### Applicable to all cabs
+  - Night charges: `1.5x (Between 10 PM to 5 AM)`
+  - Service Tax: `5.6%`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Fare Calculation
+Go through below example to understand how fare is calculated in SmartCabs.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+_Example:_
 
-### `npm test`
+Suppose a person has entered his pickup and drop locations and selected Smart Sedan. `Day time hence night charges are not applicable`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Google Maps has calculated the `Distance = 30KM` and `Duration = 30mins` from the entered pickup and drop locations.
 
-### `npm run build`
+Now, for Smart Sedan, charges as per above chart are 
+  - Charge/KM: `₹13 for first 20 KMs after that ₹25/KM`
+  - Base Price: `₹60 for first 5 KMs`
+  - Ride Time Charge: `₹1/min`
+  - Service Tax: `5.6%`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+_Calculations,_
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+`Charge on Distance (First 20 KMs) = 13 * 20 = ₹260`
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+`Charge on Distance (Remaining 10 KMs) = 25 * 10 = ₹250`
 
-### `npm run eject`
+`Base Price = 60 * 5 = ₹300`
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+`Ride Time Charge = 1 * 30 = ₹30`
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+`Total Fare = 260 + 250 + 300 + 30 = 840 * 5.6% = 887.04 = ₹887`
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## Technologies / Libraries Used
+  - JavaScript
+  - ReactJS
+  - Tailwind CSS
+  - DaisyUI
+  - React Router
+  - React Google Maps
+  - HTML
+  - CSS
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## Screenshots
 
-## Learn More
+## Live Preview
+  [SmartCabs](https://smart-cabs.netlify.app/)
+  
+  [Portfolio](https://vikasrohra.com/)
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
