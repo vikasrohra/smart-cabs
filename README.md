@@ -2,6 +2,34 @@
 
 This project is a part of hackathon organized by [FindCoder](https://www.findcoder.io/challenges/build-a-cab-fare-predictor/631cb1aeef470184194e06b5).
 
+## About SmartCabs
+SmartCabs is a mobility platform, serving many cities across India. The SmartCabs offers mobility solutions by connecting customers to drivers and a wide range of vehicles across bikes, auto-rickshaws, metered taxis, and cabs, enabling convenience and transparency for hundreds of consumers and over 10K driver-partners.
+
+## Fare Chart
+- ### Mini
+  - Charge/KM: `₹11 for first 20 KMs after that ₹20/KM`
+  - Base Price: `₹50 for first 5 KMs`
+  - Ride Time Charge: `₹1/min`
+- ### Smart Play
+  - Charge/KM: `₹13 for first 20 KMs after that ₹25/KM`
+  - Base Price: `₹60 for first 5 KMs`
+  - Ride Time Charge: `₹1/min`
+- ### Smart Sedan
+  - Charge/KM: `₹15 for first 20 KMs after that ₹30/KM`
+  - Base Price: `₹70 for first 5 KMs`
+  - Ride Time Charge: `₹1/min`
+- ### Smart SUV
+  - Charge/KM: `₹18 for first 20 KMs after that ₹35/KM`
+  - Base Price: `₹80 for first 5 KMs`
+  - Ride Time Charge: `₹1/min`
+- ### Smart EXEC
+  - Charge/KM: `₹21 for first 20 KMs after that ₹40/KM`
+  - Base Price: `₹100 for first 5 KMs`
+  - Ride Time Charge: `₹1/min`
+- ### Applicable to all cabs
+  - Night charges: `1.5x (Between 10 PM to 5 AM)`
+  - Service Tax: `56%`
+
 ## Available Scripts
 
 In the project directory, you can run:
