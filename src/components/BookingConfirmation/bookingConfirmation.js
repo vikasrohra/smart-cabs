@@ -13,10 +13,14 @@ export default function BookingConfirmation() {
 
   return (
     <>
-    {/* !cabDetails then show skeleton */}
-    {cabDetails && 
-      <Confirmation cabDetails={cabDetails} />
-    }
+      {!cabDetails &&
+        <div className='h-[100vh] w-full flex justify-center items-center'>
+          <img className='w-20 h-14' src={`${require('../../assets/images/loader.gif')}`} alt="loader" />
+        </div>
+      }
+      {cabDetails &&
+        <Confirmation cabDetails={cabDetails} />
+      }
     </>
   )
 }

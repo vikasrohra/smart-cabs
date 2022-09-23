@@ -91,7 +91,7 @@ const CabBooking = () => {
         name: 'Any',
         away: '2 mins away',
         fare: 0,
-      },      
+      },
       {
         id: 1,
         name: 'Mini',
@@ -412,21 +412,10 @@ const CabBooking = () => {
 
   return (
     <>
-      {/* Skeleton until map is loaded */}
+      {/* Loader until map is loaded */}
       {!isLoaded && (
-        <div className='shadow rounded-md p-4 h-[100vh]'>
-          <div className='animate-pulse flex space-x-4'>
-            <div className='flex-1 space-y-6 py-1'>
-              <div className='h-2 bg-slate-700 rounded'></div>
-              <div className='space-y-3'>
-                <div className='grid grid-cols-3 gap-4'>
-                  <div className='h-2 bg-slate-700 rounded col-span-2'></div>
-                  <div className='h-2 bg-slate-700 rounded col-span-1'></div>
-                </div>
-                <div className='h-2 bg-slate-700 rounded'></div>
-              </div>
-            </div>
-          </div>
+        <div className='h-[100vh] w-full flex justify-center items-center'>
+          <img className='w-20 h-14' src={`${require('../../assets/images/loader.gif')}`} alt="loader" />
         </div>
       )}
 
@@ -490,7 +479,7 @@ const CabBooking = () => {
           )}
           {/* Re-center current location */}
           <div
-            className={`label-text-alt tooltip tooltip-left tooltip-info text-xs absolute ${translateRecommendedCabs ? 'bottom-4' : 'bottom-20 md:bottom-4 lg:bottom-20 xl:bottom-4' } right-4 z-30`}
+            className={`label-text-alt tooltip tooltip-left tooltip-info text-xs absolute ${translateRecommendedCabs ? 'bottom-4' : 'bottom-20 md:bottom-4 lg:bottom-20 xl:bottom-4'} right-4 z-30`}
             data-tip='Recenter'
           >
             <button
